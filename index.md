@@ -81,12 +81,6 @@ Once the libraries are installed and the database seeded, you can run the applic
 
 ```
 $ npm run dev
-```
-
-The first time you run the app, it will create some default users and data. Here is the output:
-
-```
- $ npm run dev                                                               08:44:11
 
 > nextjs-application-template-1@0.1.0 dev
 > next dev
