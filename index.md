@@ -1,11 +1,10 @@
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/landing-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-page.png)
 
 nextjs-application-template is a sample Next.js 14 application that illustrates: 
 
   * A standard directory layout using 'src/' as recommended in the [Next.js Project Structure](https://nextjs.org/docs/getting-started/project-structure) guide.
   * [Bootstrap 5 React](https://react-bootstrap.github.io/) for user interface.
   * [React Hook Form](https://www.react-hook-form.com/) for form development.
-  * [alanning:roles](https://github.com/alanning/meteor-roles) to implement a special "Admin" user.
   * Authorization, authentication, and registration using [NextAuth.js](https://next-auth.js.org/).
   * Initialization of users and data from a settings file.
   * Alerts regarding success or failure of DB updates using [Sweet Alert](https://sweetalert.js.org/).
@@ -35,56 +34,103 @@ Fourth, cd into the directory of your local copy of the repo, and install third 
 $ npm install
 ```
 
-Fifth, create a `.env` file from the `sample.env`. Set the `DATABASE_URL` variable to match your PostgreSQL database.
+Fifth, create a `.env` file from the `sample.env`. Set the `DATABASE_URL` variable to match your PostgreSQL database. Then run the Prisma migration to set up the PostgreSQL tables.
+
+```
+$ npx prisma migrate dev
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": PostgreSQL database "<your database name>", schema "public" at "localhost:5432"
+
+Applying migration `20240708195109_init`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20240708195109_init/
+    └─ migration.sql
+
+Your database is now in sync with your schema.
+
+✔ Generated Prisma Client (v5.16.1) to ./node_modules/@prisma/client in 51ms
+
+$
+```
+
+Then seed the database with the `/config/settings.development.json` data.
+
+```
+$ npx prisma db seed
+Environment variables loaded from .env
+Running seed command `ts-node --compiler-options {"module":"CommonJS"} prisma/seed.ts` ...
+Seeding the database
+  Creating user: admin@foo.com with role: ADMIN
+  Creating user: john@foo.com with role: USER
+  Adding stuff: Basket (john@foo.com)
+  Adding stuff: Bicycle (john@foo.com)
+  Adding stuff: Banana (admin@foo.com)
+  Adding stuff: Boogie Board (admin@foo.com)
+
+🌱  The seed command has been executed.
+$
+```
 
 ## Running the system
 
-Once the libraries are installed, you can run the application by invoking the "start" script in the [package.json file](https://github.com/ics-software-engineering/meteor-application-template-react/blob/master/app/package.json):
+Once the libraries are installed and the database seeded, you can run the application by invoking the "dev" script in the [package.json file](https://github.com/ics-software-engineering/nextjs-application-template/blob/master/app/package.json):
 
 ```
-$ meteor npm run start
+$ npm run dev
 ```
 
 The first time you run the app, it will create some default users and data. Here is the output:
 
 ```
- meteor npm run start 
+ $ npm run dev                                                               08:44:11
 
-> meteor-application-template-react@ start /Users/carletonmoore/GitHub/ICS314/meteor-application-template-react/app
-> meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --settings ../config/settings.development.json
+> nextjs-application-template-1@0.1.0 dev
+> next dev
 
-[[[[[ ~/GitHub/ICS314/meteor-application-template-react/app ]]]]]
+  ▲ Next.js 14.2.4
+  - Local:        http://localhost:3000
+  - Environments: .env
 
-=> Started proxy.                             
-=> Started HMR server.                        
-=> Started MongoDB.                           
-I20220529-12:09:18.384(-10)? Creating the default user(s)
-I20220529-12:09:18.389(-10)?   Creating user admin@foo.com.
-I20220529-12:09:18.453(-10)?   Creating user john@foo.com.
-I20220529-12:09:18.515(-10)? Creating default data.
-I20220529-12:09:18.515(-10)?   Adding: Basket (john@foo.com)
-I20220529-12:09:18.599(-10)?   Adding: Bicycle (john@foo.com)
-I20220529-12:09:18.600(-10)?   Adding: Banana (admin@foo.com)
-I20220529-12:09:18.601(-10)?   Adding: Boogie Board (admin@foo.com)
-I20220529-12:09:18.773(-10)? Monti APM: completed instrumenting the app
-=> Started your app.
+ ✓ Starting...
+ ✓ Ready in 1619ms
 
-=> App running at: http://localhost:3000/
 ```
-
-Periodically, you might see `Error starting Mongo (2 tries left): Cannot run replSetReconfig because the node is currently updating its configuration` after the `=> Started HMR server.`. It doesn't seem to be a problem since the MongoDB does start.
 
 ### Viewing the running app
 
-If all goes well, the template application will appear at [http://localhost:3000](http://localhost:3000).  You can login using the credentials in [settings.development.json](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/config/settings.development.json), or else register a new account.
+If all goes well, the template application will appear at [http://localhost:3000](http://localhost:3000).  You can login using the credentials in [settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json), or else register a new account.
 
 ### ESLint
 
-You can verify that the code obeys our coding standards by running ESLint over the code in the imports/ directory with:
+You can verify that the code obeys our coding standards by running ESLint over the code in the src/ directory with:
 
 ```
-meteor npm run lint
+$ npm run lint
+
+> nextjs-application-template-1@0.1.0 lint
+> next lint
+
+=============
+
+WARNING: You are currently running a version of TypeScript which is not officially supported by @typescript-eslint/typescript-estree.
+
+You may find that it works just fine, or you may not.
+
+SUPPORTED TYPESCRIPT VERSIONS: >=4.7.4 <5.5.0
+
+YOUR TYPESCRIPT VERSION: 5.5.3
+
+Please only submit bug reports when using the officially supported version.
+
+=============
+✔ No ESLint warnings or errors
+$
 ```
+Don't worry about the Typescript WARNING.
 
 ## Walkthrough
 
@@ -95,55 +141,69 @@ The following sections describe the major features of this template.
 The top-level directory structure is:
 
 ```
-.github     # holds the GitHub Continuous Integration action and Issue template.
-app/        # holds the Meteor application sources
-config/     # holds configuration files, such as settings.development.json
-doc/        # holds developer documentation, user guides, etc.
-.gitignore  # don't commit IntelliJ project files, node_modules, and settings.production.json
+.github        # holds the GitHub Continuous Integration action and Issue template.
+config/        # holds configuration files, such as settings.development.json
+doc/           # holds developer documentation, user guides, etc.
+prisma/        # holds the Prisma ORM schema and seed.ts files.
+public/        # holds the public images.
+src/           # holds the application files.
+tests/         # holds the Playwright acceptance tests.
+.eslintrc.json # The ESLint configuration.
+.gitignore     # don't commit VSCode settings files, node_modules, and settings.production.json
 ```
 
-This structure separates documentation files (such as screenshots) and configuration files (such as the settings files) from the actual Meteor application.
+This structure separates documentation files (such as screenshots) and configuration files (such as the settings files) from the actual Next.js application.
 
-The app/ directory has this structure:
+The src/ directory has this structure:
 
 ```
-.deploy/
-  .gitignore     # don't commit mup.js or settings.json
-  mup.sample.js  # sample mup.js file used for deploying the application
-  settings.sample.json # sample settings file
+app/
+  add/       # The add route
+    page.tsx # The Add Stuff Page
+  admin/  
+    page.tsx # The Admin Page
+  api/auth/[...nextauth]/
+    route.ts # The NextAuth configuration 
+  auth/
+    change-password/
+      page.tsx # The Change Password Page   
+    signin/
+      page.tsx # The Sign In Page
+    signout/
+      page.tsx # The Sign Out Page
+    signup/
+      page.tsx # The Sign Up / Register Page
+  edit/
+    page.tsx # The Edit Stuff Page
+  list/
+    page.tsx # The List Stuff Page
+  not-authorized/
+    page.tsx # The Not Authorized Page
+  layout.tsx # The layout of the application 
+  page.tsx   # The Landing Page
+  providers.tsx # Session providers.         
   
-client/
-  main.html      # The boilerplate HTML with a "root" div to be manipulated by React.
-  main.js        # import startup files.
+components/
+  AddStuffForm.tsx   # The React Hook Form for adding stuff.
+  EditStuffForm.tsx  # The Edit Stuff Form.
+  Footer.tsx         # The application footer.
+  LoadingSpinner.tsx # Indicates working.
+  Navbar.tsx         # The application navbar.
+  StuffItem.tsx      # Row in the list stuff page.
+  StuffItemAdmin.tsx # Row in the admin list stuff page.
 
-imports/
-  api/           # Define collections
-    stuff/       # The Stuffs collection definition
-  startup/       # Define code to run when system starts up (client-only, server-only, both)
-    client/
-    server/
-  ui/
-    components/  # Contains page elements, some of which could appear on multiple pages.
-    layouts/     # Contains top-level layout (<App> component).
-    pages/       # Contains components for each page.
+lib/
+  dbActions.ts         # Functions to manipulate the Postgres database.
+  page-protections.ts  # Functions to check for logged in users and their roles.
+  prisma.ts            # Singleton Prisma client.
+  validationSchemas.ts # Yup schemas for validating forms.
 
-node_modules/    # managed by npm
-
-public/          # static assets (like images) can go here.
-
-server/
-   main.js       # import the server-side js files.
-   
-tests/           # testcafe acceptance tests.
+tests/           # playwright acceptance tests.
 ```
-
-### Import conventions
-
-This system adheres to the Meteor guideline of putting all application code in the imports/ directory, and using client/main.js and server/main.js to import the code appropriate for the client and server in an appropriate order.
 
 ### Application functionality
 
-The application implements a simple CRUD application for managing "Stuff", which is a Mongo Collection consisting of a name (String), a quantity (Number), a condition (one of 'excellent', 'good', 'fair', or 'poor') and an owner.
+The application implements a simple CRUD application for managing "Stuff", which is a PostgreSQL table consisting of a name (String), a quantity (Number), a condition (one of 'excellent', 'good', 'fair', or 'poor') and an owner.
 
 By default, each user only sees the Stuff that they have created.  However, the settings file enables you to define default accounts.  If you define a user with the role "admin", then that user gets access to a special page which lists all the Stuff defined by all users.
 
@@ -151,7 +211,7 @@ By default, each user only sees the Stuff that they have created.  However, the 
 
 When you retrieve the app at http://localhost:3000, this is what should be displayed:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/landing-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-page.png)
 
 The next step is to use the Login menu to either Login to an existing account or register a new account.
 
@@ -159,20 +219,20 @@ The next step is to use the Login menu to either Login to an existing account or
 
 Clicking on the Login link, then on the Sign In menu item displays this page:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/signin-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/signin-page.png)
 
 #### Register page
 
 Alternatively, clicking on the Login link, then on the Sign Up menu item displays this page:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/register-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/register-page.png)
 
 
 #### Landing (after Login) page, non-Admin user
 
 Once you log in (either to an existing account or by creating a new one), the navbar changes as follows:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/landing-after-login-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-after-login-page.png)
 
 You can now add new Stuff documents, and list the Stuff you have created. Note you cannot see any Stuff created by other users.
 
@@ -180,13 +240,13 @@ You can now add new Stuff documents, and list the Stuff you have created. Note y
 
 After logging in, here is the page that allows you to add new Stuff:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/add-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/add-stuff-page.png)
 
 #### List Stuff page
 
 After logging in, here is the page that allows you to list all the Stuff you have created:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/list-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/list-stuff-page.png)
 
 You click the "Edit" link to go to the Edit Stuff page, shown next.
 
@@ -194,33 +254,33 @@ You click the "Edit" link to go to the Edit Stuff page, shown next.
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/edit-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/edit-stuff-page.png)
 
 #### Landing (after Login), Admin user
 
 You can define an "admin" user in the settings.json file. This user, after logging in, gets a special entry in the navbar:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/admin-landing-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-landing-page.png)
 
 #### Admin page (list all users stuff)
 
 To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Stuff by all of the users:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/admin-list-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-list-stuff-page.png)
 
 Note that non-admin users cannot get to this page, even if they type in the URL by hand.
 
-### Collections
+### Tables
 
-The application implements a single Collection called "Stuffs". Each Stuffs document has the following fields: name, quantity, condition, and username.
+The application implements two tables "Stuff" and "User". Each Stuff row has the following columns: id, name, quantity, condition, and owner. The User table has the following columns: id, email, password (hashed using bcrypt), role.
 
-The Stuffs collection is defined in [imports/api/stuff/stuff.js](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/api/stuff/stuff.js).
+The Stuff and User models are defined in [prisma/schema.prisma](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/schema.prisma).
 
-The Stuffs collection is initialized in [imports/startup/server/Mongo.js](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/startup/server/Mongo.js).
+The tables are initialized in [prisma/seed.ts](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/seed.ts) using the command `npx prisma db seed`.
 
 ### CSS
 
-The application uses the [React implementation of Bootstrap 5](https://react-bootstrap.github.io/). You can adjust the theme by editing the `app/client/style.css` file. To change the theme override the Bootstrap 5 CSS variables.
+The application uses the [React implementation of Bootstrap 5](https://react-bootstrap.github.io/). You can adjust the theme by editing the `src/app/globals.css` file. To change the theme override the Bootstrap 5 CSS variables.
 
 ```css
 /* Change bootstrap variable values.
@@ -241,45 +301,61 @@ body {
 
 ### Routing
 
-For display and navigation among its four pages, the application uses [React Router](https://reacttraining.com/react-router/).
+For display and navigation among its four pages, the application uses [Next.js App Router](https://nextjs.org/docs/app/building-your-application/routing).
 
-Routing is defined in [imports/ui/layouts/App.jsx](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/ui/layouts/App.jsx).
+Routing is defined by the directory structure.
 
 
 ### Authentication
 
-For authentication, the application uses the Meteor accounts package.
+For authentication, the application uses the NextAuth package.
 
-When the application is run for the first time, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/config/settings.development.json)) should be passed to Meteor. That will lead to a default account being created through the code in [imports/startup/server/accounts.js](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/startup/server/accounts.js).
+When the application is run for the first time, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json)) should be passed to Meteor. That will lead to a default account being created through the code in [imports/startup/server/accounts.js](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/app/imports/startup/server/accounts.js).
 
 The application allows users to register and create new accounts at any time.
 
 ### Authorization
 
-Only logged in users can manipulate Stuff documents (but any registered user can manipulate any Stuff document, even if they weren't the user that created it.)
+Only logged in users can manipulate Stuff items (but any registered user can manipulate any Stuff item, even if they weren't the user that created it.)
 
 ### Configuration
 
-The [config](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/config) directory is intended to hold settings files.  The repository contains one file: [config/settings.development.json](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/config/settings.development.json).
+The [config](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config) directory is intended to hold settings files.  The repository contains one file: [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json).
 
-The [.gitignore](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/.gitignore) file prevents a file named settings.production.json from being committed to the repository. So, if you are deploying the application, you can put settings in a file named settings.production.json and it will not be committed.
+The [.gitignore](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/.gitignore) file prevents a file named settings.production.json from being committed to the repository. So, if you are deploying the application, you can put settings in a file named settings.production.json and it will not be committed.
 
 ### Quality Assurance
 
 #### ESLint
 
-The application includes a [.eslintrc](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/.eslintrc) file to define the coding style adhered to in this application. You can invoke ESLint from the command line as follows:
+The application includes a [.eslintrc.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/.eslintrc.json) file to define the coding style adhered to in this application. You can invoke ESLint from the command line as follows:
 
 ```
-[~/meteor-application-template-react/app]-> meteor npm run lint
+[~/nextjs-application-template]-> npm run lint
 
-> meteor-application-template-react@ lint /Users/philipjohnson/meteor-application-template-react/app
-> eslint --quiet ./imports
+> nextjs-application-template-1@0.1.0 lint
+> next lint
+
+=============
+
+WARNING: You are currently running a version of TypeScript which is not officially supported by @typescript-eslint/typescript-estree.
+
+You may find that it works just fine, or you may not.
+
+SUPPORTED TYPESCRIPT VERSIONS: >=4.7.4 <5.5.0
+
+YOUR TYPESCRIPT VERSION: 5.5.3
+
+Please only submit bug reports when using the officially supported version.
+
+=============
+✔ No ESLint warnings or errors
+[~/nextjs-application-template]-> 
 ```
 
 ESLint should run without generating any errors.
 
-It's significantly easier to do development with ESLint integrated directly into your IDE (such as IntelliJ).
+It's significantly easier to do development with ESLint integrated directly into your IDE (such as VSCode).
 
 ## Screencasts
 

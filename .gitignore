@@ -39,6 +39,8 @@ next-env.d.ts
 .vscode
 certificates
 
+settings.production.json
+
 # Playwright
 /test-results/
 /playwright-report/
