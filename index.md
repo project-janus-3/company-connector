@@ -34,7 +34,7 @@ Fourth, cd into the directory of your local copy of the repo, and install third 
 $ npm install
 ```
 
-Fifth, create a `.env` file from the `sample.env`. Set the `DATABASE_URL` variable to match your PostgreSQL database. Then run the Prisma migration to set up the PostgreSQL tables.
+Fifth, create a `.env` file from the `sample.env`. Set the `DATABASE_URL` variable to match your PostgreSQL database. Then run the Prisma migration `npx prisma migrate dev` to set up the PostgreSQL tables.
 
 ```
 $ npx prisma migrate dev
@@ -57,7 +57,7 @@ Your database is now in sync with your schema.
 $
 ```
 
-Then seed the database with the `/config/settings.development.json` data.
+Then seed the database with the `/config/settings.development.json` data using `npx prisma db seed`.
 
 ```
 $ npx prisma db seed
