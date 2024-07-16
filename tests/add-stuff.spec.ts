@@ -9,8 +9,8 @@ test('Test Add Stuff Page renders', async ({ page }) => {
   await page.locator('input[name="email"]').fill('john@foo.com');
   await page.locator('input[name="email"]').press('Tab');
   await page.locator('input[name="password"]').fill('changeme');
-  await page.locator('input[name="password"]').press('Enter');
-  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.locator('input[name="password"]').press('Tab');
+  await page.getByRole('button', { name: 'Signin' }).click();
   await page.getByRole('link', { name: 'Add Stuff' }).click();
   await expect(page.getByRole('heading', { name: 'Add Stuff' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible();

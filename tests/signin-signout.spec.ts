@@ -9,8 +9,7 @@ test('test', async ({ page }) => {
   await page.locator('input[name="email"]').press('Tab');
   await page.locator('input[name="password"]').fill('changeme');
   await page.locator('input[name="password"]').press('Tab');
-  await page.getByRole('button', { name: 'Sign in' }).press('Enter');
-  await page.goto('http://localhost:3000/list');
+  await page.getByRole('button', { name: 'Signin' }).click();
   await expect(page.getByRole('button', { name: 'john@foo.com' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Stuff' })).toBeVisible();
   await expect(page.getByRole('cell', { name: 'Basket' })).toBeVisible();
