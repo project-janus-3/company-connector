@@ -1,5 +1,6 @@
 html,
 body {
+  --bs-light-rgb: 236, 236, 236;
   box-sizing: border-box;
   height: 100%;
   padding: 0;
