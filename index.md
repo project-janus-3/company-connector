@@ -156,13 +156,21 @@ The top-level directory structure is:
 ```
 
 .github # holds the GitHub Continuous Integration action and Issue template.
+
 config/ # holds configuration files, such as settings.development.json
+
 doc/ # holds developer documentation, user guides, etc.
+
 prisma/ # holds the Prisma ORM schema and seed.ts files.
+
 public/ # holds the public images.
+
 src/ # holds the application files.
+
 tests/ # holds the Playwright acceptance tests.
+
 .eslintrc.json # The ESLint configuration.
+
 .gitignore # don't commit VSCode settings files, node_modules, and settings.production.json
 
 ```
@@ -174,47 +182,70 @@ The src/ directory has this structure:
 ```
 
 app/
-add/ # The add route
-page.tsx # The Add Stuff Page
-admin/
-page.tsx # The Admin Page
-api/auth/[...nextauth]/
-route.ts # The NextAuth configuration
-auth/
-change-password/
-page.tsx # The Change Password Page
-signin/
-page.tsx # The Sign In Page
-signout/
-page.tsx # The Sign Out Page
-signup/
-page.tsx # The Sign Up / Register Page
-edit/
-page.tsx # The Edit Stuff Page
-list/
-page.tsx # The List Stuff Page
-not-authorized/
-page.tsx # The Not Authorized Page
-layout.tsx # The layout of the application
-page.tsx # The Landing Page
-providers.tsx # Session providers.
 
-components/
-AddStuffForm.tsx # The React Hook Form for adding stuff.
-EditStuffForm.tsx # The Edit Stuff Form.
-Footer.tsx # The application footer.
-LoadingSpinner.tsx # Indicates working.
-Navbar.tsx # The application navbar.
-StuffItem.tsx # Row in the list stuff page.
-StuffItemAdmin.tsx # Row in the admin list stuff page.
+  add/ # The add route
+    page.tsx # The Add Stuff Page
 
-lib/
-dbActions.ts # Functions to manipulate the Postgres database.
-page-protections.ts # Functions to check for logged in users and their roles.
-prisma.ts # Singleton Prisma client.
-validationSchemas.ts # Yup schemas for validating forms.
+  admin/
+    page.tsx # The Admin Page
 
-tests/ # playwright acceptance tests.
+  api/auth/[...nextauth]/
+    route.ts # The NextAuth configuration
+
+  auth/
+    change-password/
+      page.tsx # The Change Password Page
+
+    signin/
+      page.tsx # The Sign In Page
+
+    signout/
+      page.tsx # The Sign Out Page
+
+    signup/
+      page.tsx # The Sign Up / Register Page
+
+  edit/
+    page.tsx # The Edit Stuff Page
+
+  list/
+    page.tsx # The List Stuff Page
+
+  not-authorized/
+    page.tsx # The Not Authorized Page
+
+  layout.tsx # The layout of the application
+
+  page.tsx # The Landing Page
+
+  providers.tsx # Session providers.
+
+  components/
+    AddStuffForm.tsx # The React Hook Form for adding stuff.
+
+    EditStuffForm.tsx # The Edit Stuff Form.
+
+    Footer.tsx # The application footer.
+
+    LoadingSpinner.tsx # Indicates working.
+
+    Navbar.tsx # The application navbar.
+
+    StuffItem.tsx # Row in the list stuff page.
+
+    StuffItemAdmin.tsx # Row in the admin list stuff page.
+
+  lib/
+
+    dbActions.ts # Functions to manipulate the Postgres database.
+
+    page-protections.ts # Functions to check for logged in users and their roles.
+
+    prisma.ts # Singleton Prisma client.
+
+    validationSchemas.ts # Yup schemas for validating forms.
+
+  tests/ # playwright acceptance tests.
 
 ```
 
@@ -325,7 +356,7 @@ Routing is defined by the directory structure.
 
 For authentication, the application uses the NextAuth package.
 
-When the application is run for the first time, a settings file (such as [config/settings.development.json](https://github.com/cammoore/nextjs-application-template/blob/main/config/settings.development.json)) should be passed to Meteor. That will lead to a default account being created through the code in [imports/startup/server/accounts.js](https://github.com/cammoore/nextjs-application-template/blob/main/app/imports/startup/server/accounts.js).
+When the database is seeded, a settings file (such as [config/settings.development.json](https://github.com/cammoore/nextjs-application-template/blob/main/config/settings.development.json)) is used to create users and stuff in the PostgreSQL database. That will lead to a default accounts being created.
 
 The application allows users to register and create new accounts at any time.
 
@@ -368,7 +399,7 @@ Please only submit bug reports when using the officially supported version.
 [~/nextjs-application-template]->
 ```
 
-ESLint should run without generating any errors.
+Do not worry about the Typescript version warning, ESLint is running. ESLint should run without generating any errors.
 
 It's significantly easier to do development with ESLint integrated directly into your IDE (such as VSCode).
 
