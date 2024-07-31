@@ -1,4 +1,4 @@
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/landing-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-page.png)
 
 nextjs-application-template is a sample Next.js 14 application that illustrates:
 
@@ -32,7 +32,7 @@ $
 
 ```
 
-Second, go to [https://github.com/cammoore/nextjs-application-template](https://github.com/cammoore/nextjs-application-template), and click the "Use this template" button. Complete the dialog box to create a new repository that you own that is initialized with this template's files.
+Second, go to [https://github.com/ics-software-engineering/nextjs-application-template](https://github.com/ics-software-engineering/nextjs-application-template), and click the "Use this template" button. Complete the dialog box to create a new repository that you own that is initialized with this template's files.
 
 Third, go to your newly created repository, and click the "Clone or download" button to download your new GitHub repo to your local file system. Using [GitHub Desktop](https://desktop.github.com/) is a great choice if you use MacOS or Windows.
 
@@ -91,7 +91,7 @@ $
 
 ## Running the system
 
-Once the libraries are installed and the database seeded, you can run the application by invoking the "dev" script in the [package.json file](https://github.com/cammoore/nextjs-application-template/blob/master/app/package.json):
+Once the libraries are installed and the database seeded, you can run the application by invoking the "dev" script in the [package.json file](https://github.com/ics-software-engineering/nextjs-application-template/blob/master/app/package.json):
 
 ```
 
@@ -112,7 +112,7 @@ $ npm run dev
 
 ### Viewing the running app
 
-If all goes well, the template application will appear at [http://localhost:3000](http://localhost:3000). You can login using the credentials in [settings.development.json](https://github.com/cammoore/nextjs-application-template/blob/main/config/settings.development.json), or else register a new account.
+If all goes well, the template application will appear at [http://localhost:3000](http://localhost:3000). You can login using the credentials in [settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json), or else register a new account.
 
 ### ESLint
 
@@ -259,7 +259,7 @@ By default, each user only sees the Stuff that they have created. However, the s
 
 When you retrieve the app at http://localhost:3000, this is what should be displayed:
 
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/landing-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-page.png)
 
 The next step is to use the Login menu to either Login to an existing account or register a new account.
 
@@ -267,19 +267,19 @@ The next step is to use the Login menu to either Login to an existing account or
 
 Clicking on the Login link, then on the Sign In menu item displays this page:
 
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/signin-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/signin-page.png)
 
 #### Register page
 
 Alternatively, clicking on the Login link, then on the Sign Up menu item displays this page:
 
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/register-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/register-page.png)
 
 #### Landing (after Login) page, non-Admin user
 
 Once you log in (either to an existing account or by creating a new one), the navbar changes as follows:
 
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/landing-after-login-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-after-login-page.png)
 
 You can now add new Stuff documents, and list the Stuff you have created. Note you cannot see any Stuff created by other users.
 
@@ -287,13 +287,13 @@ You can now add new Stuff documents, and list the Stuff you have created. Note y
 
 After logging in, here is the page that allows you to add new Stuff:
 
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/add-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/add-stuff-page.png)
 
 #### List Stuff page
 
 After logging in, here is the page that allows you to list all the Stuff you have created:
 
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/list-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/list-stuff-page.png)
 
 You click the "Edit" link to go to the Edit Stuff page, shown next.
 
@@ -301,19 +301,19 @@ You click the "Edit" link to go to the Edit Stuff page, shown next.
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/edit-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/edit-stuff-page.png)
 
 #### Landing (after Login), Admin user
 
 You can define an "admin" user in the settings.json file. This user, after logging in, gets a special entry in the navbar:
 
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/admin-landing-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-landing-page.png)
 
 #### Admin page (list all users stuff)
 
 To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Stuff by all of the users:
 
-![](https://github.com/cammoore/nextjs-application-template/raw/main/doc/admin-list-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-list-stuff-page.png)
 
 Note that non-admin users cannot get to this page, even if they type in the URL by hand.
 
@@ -321,9 +321,9 @@ Note that non-admin users cannot get to this page, even if they type in the URL 
 
 The application implements two tables "Stuff" and "User". Each Stuff row has the following columns: id, name, quantity, condition, and owner. The User table has the following columns: id, email, password (hashed using bcrypt), role.
 
-The Stuff and User models are defined in [prisma/schema.prisma](https://github.com/cammoore/nextjs-application-template/blob/main/prisma/schema.prisma).
+The Stuff and User models are defined in [prisma/schema.prisma](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/schema.prisma).
 
-The tables are initialized in [prisma/seed.ts](https://github.com/cammoore/nextjs-application-template/blob/main/prisma/seed.ts) using the command `npx prisma db seed`.
+The tables are initialized in [prisma/seed.ts](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/seed.ts) using the command `npx prisma db seed`.
 
 ### CSS
 
@@ -356,7 +356,7 @@ Routing is defined by the directory structure.
 
 For authentication, the application uses the NextAuth package.
 
-When the database is seeded, a settings file (such as [config/settings.development.json](https://github.com/cammoore/nextjs-application-template/blob/main/config/settings.development.json)) is used to create users and stuff in the PostgreSQL database. That will lead to a default accounts being created.
+When the database is seeded, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json)) is used to create users and stuff in the PostgreSQL database. That will lead to a default accounts being created.
 
 The application allows users to register and create new accounts at any time.
 
@@ -366,15 +366,15 @@ Only logged in users can manipulate Stuff items (but any registered user can man
 
 ### Configuration
 
-The [config](https://github.com/cammoore/nextjs-application-template/blob/main/config) directory is intended to hold settings files. The repository contains one file: [config/settings.development.json](https://github.com/cammoore/nextjs-application-template/blob/main/config/settings.development.json).
+The [config](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config) directory is intended to hold settings files. The repository contains one file: [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json).
 
-The [.gitignore](https://github.com/cammoore/nextjs-application-template/blob/main/.gitignore) file prevents a file named settings.production.json from being committed to the repository. So, if you are deploying the application, you can put settings in a file named settings.production.json and it will not be committed.
+The [.gitignore](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/.gitignore) file prevents a file named settings.production.json from being committed to the repository. So, if you are deploying the application, you can put settings in a file named settings.production.json and it will not be committed.
 
 ### Quality Assurance
 
 #### ESLint
 
-The application includes a [.eslintrc.json](https://github.com/cammoore/nextjs-application-template/blob/main/.eslintrc.json) file to define the coding style adhered to in this application. You can invoke ESLint from the command line as follows:
+The application includes a [.eslintrc.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/.eslintrc.json) file to define the coding style adhered to in this application. You can invoke ESLint from the command line as follows:
 
 ```
 [~/nextjs-application-template]-> npm run lint
