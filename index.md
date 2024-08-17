@@ -125,19 +125,6 @@ $ npm run lint
 > nextjs-application-template-1@0.1.0 lint
 > next lint
 
-=============
-
-WARNING: You are currently running a version of TypeScript which is not officially supported by @typescript-eslint/typescript-estree.
-
-You may find that it works just fine, or you may not.
-
-SUPPORTED TYPESCRIPT VERSIONS: >=4.7.4 <5.5.0
-
-YOUR TYPESCRIPT VERSION: 5.5.3
-
-Please only submit bug reports when using the officially supported version.
-
-=============
 ✔ No ESLint warnings or errors
 $
 
