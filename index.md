@@ -119,7 +119,6 @@ If all goes well, the template application will appear at [http://localhost:3000
 You can verify that the code obeys our coding standards by running ESLint over the code in the src/ directory with:
 
 ```
-
 $ npm run lint
 
 > nextjs-application-template-1@0.1.0 lint
@@ -127,10 +126,7 @@ $ npm run lint
 
 ✔ No ESLint warnings or errors
 $
-
 ```
-
-Don't worry about the Typescript WARNING.
 
 ## Walkthrough
 
