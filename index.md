@@ -382,24 +382,11 @@ The application includes a [.eslintrc.json](https://github.com/ics-software-engi
 > nextjs-application-template-1@0.1.0 lint
 > next lint
 
-=============
-
-WARNING: You are currently running a version of TypeScript which is not officially supported by @typescript-eslint/typescript-estree.
-
-You may find that it works just fine, or you may not.
-
-SUPPORTED TYPESCRIPT VERSIONS: >=4.7.4 <5.5.0
-
-YOUR TYPESCRIPT VERSION: 5.5.3
-
-Please only submit bug reports when using the officially supported version.
-
-=============
 ✔ No ESLint warnings or errors
 [~/nextjs-application-template]->
 ```
 
-Do not worry about the Typescript version warning, ESLint is running. ESLint should run without generating any errors.
+ESLint should run without generating any errors.
 
 It's significantly easier to do development with ESLint integrated directly into your IDE (such as VSCode).
 
