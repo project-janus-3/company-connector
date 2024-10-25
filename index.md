@@ -373,6 +373,7 @@ ESLint should run without generating any errors.
 
 It's significantly easier to do development with ESLint integrated directly into your IDE (such as VSCode).
 
+<!--
 ## Screencasts
 
 For more information about this system, please watch one or more of the following screencasts. Note that the current source code might differ slightly from the code in these screencasts, but the changes should be very minor.
@@ -382,3 +383,4 @@ For more information about this system, please watch one or more of the followin
 - [Navigation, routing, pages, components (34 min)](https://youtu.be/XztTdHpv6Jw)
 - [Forms (32 min)](https://youtu.be/8FyWR3gUGCM)
 - [Authorization, authentication, and roles (12 min)](https://youtu.be/9HX5vuXTlvA)
+-->
