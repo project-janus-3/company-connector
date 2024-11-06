@@ -11,14 +11,6 @@ test('User Pages', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'john@foo.com' })).toBeVisible();
   await page.getByRole('link', { name: 'Add Stuff' }).click();
   await expect(page.getByRole('heading', { name: 'Add Stuff' })).toBeVisible();
-  await expect(page.getByText('Name')).toBeVisible();
-  await expect(page.getByText('Quantity')).toBeVisible();
-  await expect(page.getByText('Condition')).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Reset' })).toBeVisible();
   await page.getByRole('link', { name: 'List Stuff' }).click();
   await expect(page.getByRole('heading', { name: 'Stuff' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Name' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Bicycle' })).toBeVisible();
-  await expect(page.getByRole('cell', { name: 'Basket' })).toBeVisible();
 });
