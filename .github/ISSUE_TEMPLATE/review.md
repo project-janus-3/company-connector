@@ -27,9 +27,10 @@ review-xxx
 
 * [Architecture](../../checklists/architecture-checklist.md)
 * [Design](../../checklists/design-checklist.md)
-* [TS](../../checklists/ts-checklist.md)
 * [React](../../checklists/react-checklist.md)
 * [Testing](../../checklists/testing-checklist.md)
+* [Typescript](../../checklists/ts-checklist.md)
+* [UI](../../checklists/ui-checklist.md)
 
 ## Due date
 
