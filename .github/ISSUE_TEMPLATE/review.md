@@ -11,7 +11,7 @@ assignees: ''
 
 The focus for this code review will be centered around the _____ page.    
 Please pay attention too:
-* Javascript issues
+* Typescript issues
 * React components
 
 ## Review Branch
@@ -27,7 +27,7 @@ review-xxx
 
 * [Architecture](../../checklists/architecture-checklist.md)
 * [Design](../../checklists/design-checklist.md)
-* [JS](../../checklists/js-checklist.md)
+* [TS](../../checklists/ts-checklist.md)
 * [React](../../checklists/react-checklist.md)
 * [Testing](../../checklists/testing-checklist.md)
 
