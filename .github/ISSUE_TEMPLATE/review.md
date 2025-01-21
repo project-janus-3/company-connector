@@ -25,12 +25,12 @@ review-xxx
 
 ## Checklists
 
-* [Architecture](../../checklists/architecture-checklist.md)
-* [Design](../../checklists/design-checklist.md)
-* [React](../../checklists/react-checklist.md)
-* [Testing](../../checklists/testing-checklist.md)
-* [Typescript](../../checklists/ts-checklist.md)
-* [UI](../../checklists/ui-checklist.md)
+* [Architecture](../../blob/main/checklists/architecture-checklist.md)
+* [Design](../blob/main/checklists/design-checklist.md)
+* [React](../blob/main/checklists/react-checklist.md)
+* [Testing](../blob/main/checklists/testing-checklist.md)
+* [Typescript](../blob/main/checklists/ts-checklist.md)
+* [UI](../blob/main/checklists/ui-checklist.md)
 
 ## Due date
 
@@ -38,4 +38,4 @@ Day, Month Day Time
 
 ## For more information
 
-The review process is documented at: http://courses.ics.hawaii.edu/ics414s25/morea/review/reading-idpm-review.html
+The review process is documented at: [IDPM Review](http://courses.ics.hawaii.edu/ics414s25/morea/review/reading-idpm-review.html)
