@@ -7,25 +7,28 @@ assignees: ''
 
 ---
 
+(Delete all text in parentheses when filling out this template, including this text.)
+
 ## Overview
 
-The focus for this code review will be centered around the _____ page.    
-Please pay attention too:
-* Typescript issues
-* React components
+(Provide an introduction to this review. What are the goals? What should reviewers keep in mind as they do it?)
 
 ## Review Branch
 
-review-xxx
+(Please indicate the review branch here. It should be named review-xxx, where xxx is this issue number.)
 
 ## Files to review
+
+(Please list the files to be reviewed here. It would be great to provide the URL to each file in the review branch.)
 
 * file1
 * file2
 
 ## Checklists
 
-* [Architecture](../../blob/main/checklists/architecture-checklist.md)
+(Please edit the following list if necessary to indicate the actual checklists to be used.)
+
+* [Architecture](../blob/main/checklists/architecture-checklist.md)
 * [Design](../blob/main/checklists/design-checklist.md)
 * [React](../blob/main/checklists/react-checklist.md)
 * [Testing](../blob/main/checklists/testing-checklist.md)

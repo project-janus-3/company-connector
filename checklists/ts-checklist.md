@@ -34,11 +34,11 @@ When a comment starts with '/**', it will be processed by TSDoc. Please ensure t
 
 ## ESLint
 
-### ESLINT-01: No errors, avoid warnings.
+### ES-01: No errors, avoid warnings.
 
 Are there ESLint errors or warnings that should be removed?
 
-### ESLINT-02: Consider modifying our standards.
+### ES-02: Consider modifying our standards.
 
 Based upon your review of code, should we be modifying the set of ESLint rules?
 
