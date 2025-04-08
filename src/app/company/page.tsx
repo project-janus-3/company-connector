@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { Col, Container, Row, Table } from 'react-bootstrap';
-import StuffItemAdmin from '@/components/StuffItemAdmin';
+import StuffItemCompany from '@/components/StuffItemCompany';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
@@ -33,7 +33,7 @@ const CompanyPage = async () => {
               </thead>
               <tbody>
                 {stuff.map((item) => (
-                  <StuffItemAdmin key={item.id} {...item} />
+                  <StuffItemCompany key={item.id} {...item} />
                 ))}
               </tbody>
             </Table>
