@@ -1,20 +1,18 @@
-import { Col, Container, Image, Row } from 'react-bootstrap';
+// import { Container } from 'react-bootstrap';
+import Link from 'next/link';
 
 /** The Home page. */
 const Home = () => (
   <main>
-    <Container id="landing-page" fluid className="py-3">
-      <Row className="align-middle text-center">
-        <Col xs={4}>
-          <Image src="next.svg" width="150px" alt="" />
-        </Col>
-
-        <Col xs={8} className="d-flex flex-column justify-content-center">
-          <h1>Welcome to this template</h1>
-          <p>Now get to work and modify this app!</p>
-        </Col>
-      </Row>
-    </Container>
+    <div className="info">
+      <div>
+        <h1>Connecting UH Students to Career Opportunities</h1>
+        <p className="lead">Discover internships, jobs, and more—tailored to your skills and interests.</p>
+        <Link href="/explore" className="btn btn-success mt-3">
+          Get Started
+        </Link>
+      </div>
+    </div>
   </main>
 );
 
