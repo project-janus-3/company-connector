@@ -1,68 +1,30 @@
 import { getServerSession } from 'next-auth';
 import { Col, Container, Row, Table } from 'react-bootstrap';
-import StuffItemCompany from '@/components/StuffItemCompany';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 
-const CompanyPage = async () => {
-  const session = await getServerSession(authOptions);
-  adminProtectedPage(
-    session as {
-      user: { email: string; id: string; randomKey: string };
-    } | null,
-  );
-  const stuff = await prisma.stuff.findMany({});
-  const users = await prisma.user.findMany({});
-
-  return (
-    <main>
-      <Container id="list" fluid className="py-3">
-        <Row>
-          <Col>
-            <h1>List Stuff Company</h1>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Quantity</th>
-                  <th>Condition</th>
-                  <th>Owner</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {stuff.map((item) => (
-                  <StuffItemCompany key={item.id} {...item} />
-                ))}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <h1>List Company</h1>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Email</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user.id}>
-                    <td>{user.email}</td>
-                    <td>{user.role}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-      </Container>
+const CompanyProfile = async () => {
+  <main className="container my-5">
+    <div className="row mb-5">
+        <div className="card p-3 shadow-sm profile-sidebar-content">
+            <div className="d-flex align-items-center mb-4">
+                <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/free-company-logo-design-template-f02206903dcc70505736cca7fd9c5104_screen.jpg?ts=1638867492"
+                      alt="Profile Picture" 
+                      className="img-fluid rounded-circle me-3" 
+                      style= {{ width: 150, height: 150 }} />
+                <div>
+                    <p className="mb-1 fw-bold">COMPANY NAME</p>
+                    <p className="mb-0">Location: Foo</p>
+                    <div className="card p-3 shadow-sm">
+                        <h5>OVERVIEW</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
     </main>
-  );
 };
 
-export default CompanyPage;
+export default CompanyProfile;
