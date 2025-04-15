@@ -20,6 +20,14 @@
   color: var(--nat-navbar-text-color);
 }
 
+.footer-style {
+  background-color: #faf8f7;
+}
+
+.footer-text {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 18px;
+}
 
 html,
 body {
