@@ -62,3 +62,18 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+
+.info {
+  background-image: url('/landing-page-background.jpg');
+  background-size: cover;         
+  background-position: center;    
+  background-repeat: no-repeat;   
+  min-height: 80vh;                  
+  color: white;                   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+  
