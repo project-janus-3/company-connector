@@ -6,6 +6,25 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.profile-sidebar {
+  flex-basis: 20rem;
+  flex-grow: 1;
+}
+
+.profile-sidebar-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.profile-contents {
+  flex-basis: 0;
+  flex-grow: 999;
+  align-items: stretch;
+}
+
+
 .wrapper {
   box-sizing: border-box;
   min-height: 100%;
