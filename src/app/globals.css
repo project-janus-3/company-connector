@@ -1,3 +1,34 @@
+:root {
+  --nat-navbar-bg: #faf8f7;
+  --nat-navbar-text-color: black;
+}
+
+#navbar-style {
+  background-color: var(--nat-navbar-bg);
+  color: var(--nat-navbar-text-color);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#brand-style {
+  background-color: var(--nat-navbar-bg);
+  color: var(--nat-navbar-text-color);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 28px;
+}
+
+#navlink-style {
+  color: var(--nat-navbar-text-color);
+}
+
+.footer-style {
+  background-color: #faf8f7;
+}
+
+.footer-text {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 18px;
+}
+
 html,
 body {
   --bs-light-rgb: 236, 236, 236;
@@ -31,3 +62,18 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+
+.info {
+  background-image: url('/landing-page-background.jpg');
+  background-size: cover;         
+  background-position: center;    
+  background-repeat: no-repeat;   
+  min-height: 80vh;                  
+  color: white;                   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+  
