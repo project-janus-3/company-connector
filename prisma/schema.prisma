@@ -44,3 +44,17 @@ model Stuff {
   condition Condition @default(good)
   owner     String
 }
+
+model Job {
+  description   String
+  skill         String[]
+  type          PositionType @default(internship)
+  openings      Int
+  salary        String
+}
+
+enum positionType {
+  internship
+  permanent
+  both
+}
