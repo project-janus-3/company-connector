@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
                {/* ? [ */}
                   <Link href="/" passHref legacyBehavior key="home">
                   <Nav.Link
-                    id="add-stuff-nav"
+                    id="home-nav"
                     active={pathName === '/'}
                   >
                     Home
@@ -43,10 +43,16 @@ const NavBar: React.FC = () => {
                   <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
                     Browse
                   </Nav.Link>
+                  <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
+                    Student Home
+                  </Nav.Link>
+                  <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
+                    Company Home
+                  </Nav.Link>
             {/* }    ] */}
             {/* }: ''} */}
-
-            <Nav.Link href="#" key="#" active={pathName === '#'}>
+ 
+            {/* <Nav.Link href="#" key="#" active={pathName === '#'}>
               Home
             </Nav.Link>
 
@@ -56,7 +62,7 @@ const NavBar: React.FC = () => {
 
             <Nav.Link href="#" key="#" active={pathName === '#'}>
               Browse
-            </Nav.Link>
+            </Nav.Link> */}
 
             {currentUser && role === 'ADMIN' ? (
               <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
