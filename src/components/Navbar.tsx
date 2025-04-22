@@ -31,23 +31,27 @@ const NavBar: React.FC = () => {
                     Home
                   </Nav.Link>
                   </Link>
-                  <Link href="/student-profile" passHref legacyBehavior key="profile">
+                  <Link href="/student-profile" passHref legacyBehavior key="student-profile">
                   <Nav.Link
-                    id="profile-nav"
-                    key="profile"
+                    id="student-profile-nav"
                     active={pathName === '/student-profile'}
                   >
-                    Profile
+                    Student Profile
                   </Nav.Link>
                   </Link>
                   <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
                     Browse
                   </Nav.Link>
-                  <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
+                  <Link href="/student-home-page" passHref legacyBehavior key="student-home-page">
+                  <Nav.Link 
+                    id="student-home-page-nav" 
+                    active={pathName === '/student-home-page'}
+                  >
                     Student Home
                   </Nav.Link>
+                  </Link>
                   <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
-                    Company Home
+                    Company Profile
                   </Nav.Link>
             {/* }    ] */}
             {/* }: ''} */}
