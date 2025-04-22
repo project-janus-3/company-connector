@@ -1,4 +1,4 @@
-import { PrismaClient, Role, Condition } from '@prisma/client';
+import { PrismaClient, Role, positionType } from '@prisma/client';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
 
@@ -7,32 +7,29 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Seeding the database');
   const password = await hash('changeme', 10);
-  config.defaultAccounts.forEach(async (account) => {
-    const role = account.role as Role || Role.USER;
-    console.log(`  Creating user: ${account.email} with role: ${role}`);
-    await prisma.user.upsert({
-      where: { email: account.email },
-      update: {},
-      create: {
-        email: account.email,
-        password,
-        role,
-      },
-    });
-    // console.log(`  Created user: ${user.email} with role: ${user.role}`);
-  });
+  config.defaultAccounts.forEach(async (account) => prisma.user.upsert({
+    where: { email: account.email },
+    update: {},
+    create: {
+      email: account.email,
+      password,
+      role: account.role as Role || Role.USER,
+    },
+  }).then(() => console.log(`  Creating user: ${account.email} with role: ${account.role as Role || Role.USER}`)));
   for (const data of config.defaultData) {
-    const condition = data.condition as Condition || Condition.good;
+    const type = data.type as positionType || positionType.internship;
     console.log(`  Adding stuff: ${JSON.stringify(data)}`);
     // eslint-disable-next-line no-await-in-loop
-    await prisma.stuff.upsert({
+    await prisma.job.upsert({
       where: { id: config.defaultData.indexOf(data) + 1 },
       update: {},
       create: {
-        name: data.name,
-        quantity: data.quantity,
+        description: data.description,
+        skill: [data.skill],
+        type,
+        openings: data.openings,
+        salary: data.salary,
         owner: data.owner,
-        condition,
       },
     });
   }
@@ -43,4 +40,5 @@ main()
     console.error(e);
     await prisma.$disconnect();
     process.exit(1);
-  });
+  }
+);

@@ -16,9 +16,9 @@ const ListPage = async () => {
     } | null,
   );
   const owner = (session && session.user && session.user.email) || '';
-  const stuff = await prisma.stuff.findMany({
+  const item = await prisma.job.findMany({
     where: {
-      owner,
+      owner: owner,
     },
   });
   // console.log(stuff);
@@ -31,15 +31,16 @@ const ListPage = async () => {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Quantity</th>
-                  <th>Condition</th>
-                  <th>Actions</th>
+                  <th>Job</th>
+                  <th>Description</th>
+                  <th>Type</th>
+                  <th>Openings</th>
+                  <th>Salary</th>
                 </tr>
               </thead>
               <tbody>
-                {stuff.map((item) => (
-                  <StuffItem key={item.id} {...item} />
+                {item.map((item) => (
+                  <StuffItem key={item.id} job={item} />
                 ))}
               </tbody>
             </Table>
