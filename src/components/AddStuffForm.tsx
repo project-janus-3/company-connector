@@ -16,7 +16,7 @@ const onSubmit = async (data: { description: string; openings: number; owner: st
     name: data.description,
     quantity: data.openings,
     owner: data.owner,
-    condition: data.type,
+    jobtype: data.type,
   });
   swal('Success', 'Your item has been added', 'success', {
     timer: 2000,

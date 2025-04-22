@@ -1,30 +1,31 @@
 'use server';
 
-import { Stuff, Condition } from '@prisma/client';
+import { Job, positionType } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
 
 /**
  * Adds a new stuff to the database.
- * @param stuff, an object with the following properties: name, quantity, owner, condition.
+ * @param stuff, an object with the following properties: name, quantity, owner, jobtype.
  */
-export async function addStuff(stuff: { name: string; quantity: number; owner: string; condition: string }) {
+export async function addStuff(stuff: { name: string; quantity: number; owner: string; jobtype: string; }) {
   // console.log(`addStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  let condition: Condition = 'good';
-  if (stuff.condition === 'poor') {
-    condition = 'poor';
-  } else if (stuff.condition === 'excellent') {
-    condition = 'excellent';
+  let jobtype: positionType = 'internship';
+  if (stuff.jobtype === 'both') {
+    jobtype = 'both';
   } else {
-    condition = 'fair';
+    jobtype = 'permanent';
   }
-  await prisma.stuff.create({
+
+  await prisma.job.create({
     data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
+      description: stuff.name,
+      skill: [stuff.jobtype],
+      type: jobtype,
+      openings: stuff.quantity,
       owner: stuff.owner,
-      condition,
+      salary: '0', // Replace with appropriate salary value or logic
     },
   });
   // After adding, redirect to the list page
@@ -33,17 +34,19 @@ export async function addStuff(stuff: { name: string; quantity: number; owner: s
 
 /**
  * Edits an existing stuff in the database.
- * @param stuff, an object with the following properties: id, name, quantity, owner, condition.
+ * @param stuff, an object with the following properties: id, name, quantity, owner, jobtype.
  */
-export async function editStuff(stuff: Stuff) {
+export async function editStuff(stuff: Job) {
   // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  await prisma.stuff.update({
+  await prisma.job.update({
     where: { id: stuff.id },
     data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
+      description: stuff.description,
+      skill: stuff.skill,
+      type: stuff.type,
+      openings: stuff.openings,
       owner: stuff.owner,
-      condition: stuff.condition,
+      salary: stuff.salary,
     },
   });
   // After updating, redirect to the list page
@@ -56,7 +59,7 @@ export async function editStuff(stuff: Stuff) {
  */
 export async function deleteStuff(id: number) {
   // console.log(`deleteStuff id: ${id}`);
-  await prisma.stuff.delete({
+  await prisma.job.delete({
     where: { id },
   });
   // After deleting, redirect to the list page
