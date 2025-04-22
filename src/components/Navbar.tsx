@@ -2,6 +2,7 @@
 
 'use client';
 
+import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
@@ -20,19 +21,30 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
-            {currentUser
-              ? [
-                  <Nav.Link id="add-stuff-nav" href="/add" key="add" active={pathName === '/add'}>
+            {/* { currentUser */}
+               {/* ? [ */}
+                  <Link href="/" passHref legacyBehavior key="home">
+                  <Nav.Link
+                    id="add-stuff-nav"
+                    active={pathName === '/'}
+                  >
                     Home
-                  </Nav.Link>,
-                  <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
+                  </Nav.Link>
+                  </Link>
+                  <Link href="/student-profile" passHref legacyBehavior key="profile">
+                  <Nav.Link
+                    id="profile-nav"
+                    key="profile"
+                    active={pathName === '/student-profile'}
+                  >
                     Profile
-                  </Nav.Link>,
+                  </Nav.Link>
+                  </Link>
                   <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
                     Browse
-                  </Nav.Link>,
-                ]
-            : ''}
+                  </Nav.Link>
+            {/* }    ] */}
+            {/* }: ''} */}
 
             <Nav.Link href="#" key="#" active={pathName === '#'}>
               Home
