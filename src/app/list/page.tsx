@@ -18,9 +18,7 @@ const ListPage = async () => {
   const owner = (session && session.user && session.user.email) || '';
   const item = await prisma.job.findMany({
     where: {
-      owner: {
-        email: owner,
-      },
+      owner: owner,
     },
   });
   // console.log(stuff);
@@ -42,7 +40,7 @@ const ListPage = async () => {
               </thead>
               <tbody>
                 {item.map((item) => (
-                  <StuffItem key={item.id} {...item} />
+                  <StuffItem key={item.id} job={item} />
                 ))}
               </tbody>
             </Table>

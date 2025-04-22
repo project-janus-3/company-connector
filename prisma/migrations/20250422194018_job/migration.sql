@@ -1,8 +1,7 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
-
+CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN', 'COMPANY');
 -- CreateEnum
-CREATE TYPE "Condition" AS ENUM ('excellent', 'good', 'fair', 'poor');
+CREATE TYPE "positionType" AS ENUM ('internship', 'permanent', 'both');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -15,14 +14,16 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Stuff" (
+CREATE TABLE "Job" (
     "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-    "quantity" INTEGER NOT NULL,
-    "condition" "Condition" NOT NULL,
     "owner" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "skill" TEXT[],
+    "type" "positionType" NOT NULL DEFAULT 'internship',
+    "openings" INTEGER NOT NULL,
+    "salary" TEXT NOT NULL,
 
-    CONSTRAINT "Stuff_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Job_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
