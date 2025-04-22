@@ -4,11 +4,11 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import swal from 'sweetalert';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Stuff } from '@prisma/client';
+import { Job } from '@prisma/client';
 import { EditStuffSchema } from '@/lib/validationSchemas';
 import { editStuff } from '@/lib/dbActions';
 
-const onSubmit = async (data: Stuff) => {
+const onSubmit = async (data: Job) => {
   // console.log(`onSubmit data: ${JSON.stringify(data, null, 2)}`);
   await editStuff(data);
   swal('Success', 'Your item has been updated', 'success', {
@@ -16,13 +16,13 @@ const onSubmit = async (data: Stuff) => {
   });
 };
 
-const EditStuffForm = ({ stuff }: { stuff: Stuff }) => {
+const EditStuffForm = ({ stuff }: { stuff: Job }) => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Stuff>({
+  } = useForm<Job>({
     resolver: yupResolver(EditStuffSchema),
   });
   // console.log(stuff);
@@ -32,46 +32,69 @@ const EditStuffForm = ({ stuff }: { stuff: Stuff }) => {
       <Row className="justify-content-center">
         <Col xs={5}>
           <Col className="text-center">
-            <h2>Edit Stuff</h2>
+            <h2>Edit Job</h2>
           </Col>
           <Card>
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('id')} value={stuff.id} />
                 <Form.Group>
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Description</Form.Label>
                   <input
                     type="text"
-                    {...register('name')}
-                    defaultValue={stuff.name}
+                    {...register('description')}
+                    defaultValue={stuff.description}
                     required
-                    className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                    className={`form-control ${errors.description ? 'is-invalid' : ''}`}
                   />
-                  <div className="invalid-feedback">{errors.name?.message}</div>
+                  <div className="invalid-feedback">{errors.description?.message}</div>
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Quantity</Form.Label>
+                  <Form.Label>
+                    Skill
+                  </Form.Label>
                   <input
                     type="number"
-                    {...register('quantity')}
-                    defaultValue={stuff.quantity}
-                    className={`form-control ${errors.quantity ? 'is-invalid' : ''}`}
+                    {...register('skill')}
+                    defaultValue={stuff.skill}
+                    className={`form-control ${errors.skill ? 'is-invalid' : ''}`}
                   />
-                  <div className="invalid-feedback">{errors.quantity?.message}</div>
+                  <div className="invalid-feedback">{errors.skill?.message}</div>
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Condition</Form.Label>
+                  <Form.Label>Type</Form.Label>
                   <select
-                    {...register('condition')}
-                    className={`form-control ${errors.condition ? 'is-invalid' : ''}`}
-                    defaultValue={stuff.condition}
+                    {...register('type')}
+                    className={`form-control ${errors.type ? 'is-invalid' : ''}`}
+                    defaultValue={stuff.type}
                   >
-                    <option value="excellent">Excellent</option>
-                    <option value="good">Good</option>
-                    <option value="fair">Fair</option>
-                    <option value="poor">Poor</option>
+                    <option value="internship">Internship</option>
+                    <option value="permanent">Permanent</option>
+                    <option value="both">Both</option>
                   </select>
-                  <div className="invalid-feedback">{errors.condition?.message}</div>
+                  <div className="invalid-feedback">{errors.type?.message}</div>
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Salary</Form.Label>
+                  <input
+                    type="text"
+                    {...register('salary')}
+                    defaultValue={stuff.salary}
+                    required
+                    className={`form-control ${errors.salary ? 'is-invalid' : ''}`}
+                  />
+                  <div className="invalid-feedback">{errors.salary?.message}</div>
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Openings</Form.Label>
+                  <input
+                    type="text"
+                    {...register('openings')}
+                    defaultValue={stuff.openings}
+                    required
+                    className={`form-control ${errors.openings ? 'is-invalid' : ''}`}
+                  />
+                  <div className="invalid-feedback">{errors.openings?.message}</div>
                 </Form.Group>
                 <input type="hidden" {...register('owner')} value={stuff.owner} />
                 <Form.Group className="form-group">
