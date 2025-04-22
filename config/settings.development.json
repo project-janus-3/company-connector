@@ -6,9 +6,10 @@
   ],
 
   "defaultData": [
-    { "name": "Basket", "quantity": 3, "owner": "john@foo.com", "condition": "excellent" },
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+    {"description": "Very good company", "skill": "JavaScript", "type": "internship", "openings": 2, "salary": "1000$", "owner": "company@foo.com"},
+    {"description": "Very honest company", "skill": "C++", "type": "permanent", "openings": 4, "salary": "2000$", "owner": "company@foo.com"},
+    {"description": "Very hardworking company", "skill": "JavaScript, C", "type": "internship", "openings": 2, "salary": "1000$", "owner": "john@foo.com"},
+    {"description": "Very interesting company", "skill": "JavaScript", "type": "permanent", "openings": 5, "salary": "3000$", "owner": "john@foo.com"}
+
   ]
 }

@@ -37,20 +37,14 @@ enum Condition {
   poor
 }
 
-model Stuff {
-  id        Int       @id @default(autoincrement())
-  name      String
-  quantity  Int
-  condition Condition @default(good)
-  owner     String
-}
-
 model Job {
-  description   String
-  skill         String[]
-  type          PositionType @default(internship)
-  openings      Int
-  salary        String
+  id          Int          @id @default(autoincrement())
+  owner       String
+  description String
+  skill       String[]
+  type        positionType @default(internship)
+  openings    Int
+  salary      String
 }
 
 enum positionType {

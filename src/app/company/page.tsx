@@ -81,6 +81,7 @@ const CompanyPage = () => (
 </div>
 </div>
 </main>
+</body>
 
 <footer className="navbar navbar-expand-sm navbar-light mt-4 fixed-bottom bg-light">
 <div className="container d-flex justify-content-between align-items-center">
@@ -107,8 +108,6 @@ Send
 </div>
 </div>
 </footer>
-
+</>
 );
-);
-
 export default CompanyPage;
