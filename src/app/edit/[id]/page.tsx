@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
-import { Stuff } from '@prisma/client';
+import { Job } from '@prisma/client';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
@@ -17,7 +17,7 @@ export default async function EditStuffPage({ params }: { params: { id: string |
   );
   const id = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
   // console.log(id);
-  const stuff: Stuff | null = await prisma.stuff.findUnique({
+  const stuff: Job | null = await prisma.job.findUnique({
     where: { id },
   });
   // console.log(stuff);
