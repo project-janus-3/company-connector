@@ -12,16 +12,15 @@ const ListPage = async () => {
   loggedInProtectedPage(
     session as {
       user: { email: string; id: string; randomKey: string };
-      // eslint-disable-next-line @typescript-eslint/comma-dangle
     } | null,
   );
   const owner = (session && session.user && session.user.email) || '';
-  const item = await prisma.job.findMany({
+  const jobs = await prisma.job.findMany({
     where: {
-      owner: owner,
+      owner, // Shorthand syntax
     },
   });
-  // console.log(stuff);
+
   return (
     <main>
       <Container id="list" fluid className="py-3">
@@ -39,8 +38,8 @@ const ListPage = async () => {
                 </tr>
               </thead>
               <tbody>
-                {item.map((item) => (
-                  <StuffItem key={item.id} job={item} />
+                {jobs.map((job) => (
+                  <StuffItem key={job.id} job={job} />
                 ))}
               </tbody>
             </Table>
