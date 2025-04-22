@@ -10,9 +10,14 @@ import { addStuff } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddStuffSchema } from '@/lib/validationSchemas';
 
-const onSubmit = async (data: { name: string; quantity: number; owner: string; condition: string }) => {
+const onSubmit = async (data: { description: string; openings: number; owner: string; type: string }) => {
   // console.log(`onSubmit data: ${JSON.stringify(data, null, 2)}`);
-  await addStuff(data);
+  await addStuff({
+    name: data.description,
+    quantity: data.openings,
+    owner: data.owner,
+    condition: data.type,
+  });
   swal('Success', 'Your item has been added', 'success', {
     timer: 2000,
   });
@@ -51,29 +56,28 @@ const AddStuffForm: React.FC = () => {
                   <Form.Label>Name</Form.Label>
                   <input
                     type="text"
-                    {...register('name')}
-                    className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                    {...register('description')}
+                    className={`form-control ${errors.description ? 'is-invalid' : ''}`}
                   />
-                  <div className="invalid-feedback">{errors.name?.message}</div>
+                  <div className="invalid-feedback">{errors.description?.message}</div>
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Quantity</Form.Label>
                   <input
                     type="number"
-                    {...register('quantity')}
-                    className={`form-control ${errors.quantity ? 'is-invalid' : ''}`}
+                    {...register('openings')}
+                    className={`form-control ${errors.openings ? 'is-invalid' : ''}`}
                   />
-                  <div className="invalid-feedback">{errors.quantity?.message}</div>
+                  <div className="invalid-feedback">{errors.openings?.message}</div>
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Condition</Form.Label>
-                  <select {...register('condition')} className={`form-control ${errors.condition ? 'is-invalid' : ''}`}>
-                    <option value="excellent">Excellent</option>
-                    <option value="good">Good</option>
-                    <option value="fair">Fair</option>
-                    <option value="poor">Poor</option>
+                  <select {...register('type')} className={`form-control ${errors.type ? 'is-invalid' : ''}`}>
+                    <option value="internship">Internship</option>
+                    <option value="permanent">Permanent</option>
+                    <option value="both">Both</option>
                   </select>
-                  <div className="invalid-feedback">{errors.condition?.message}</div>
+                  <div className="invalid-feedback">{errors.type?.message}</div>
                 </Form.Group>
                 <input type="hidden" {...register('owner')} value={currentUser} />
                 <Form.Group className="form-group">
