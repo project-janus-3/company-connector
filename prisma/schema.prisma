@@ -14,23 +14,24 @@ model User {
   role     Role   @default(USER)
 }
 
-model Stuff {
-  id        Int       @id @default(autoincrement())
-  name      String
-  quantity  Int
-  condition Condition @default(good)
-  owner     String
-}
-
 enum Role {
   USER
   ADMIN
   COMPANY
 }
 
-enum Condition {
-  excellent
-  good
-  fair
-  poor
+model Job {
+  id          Int          @id @default(autoincrement())
+  owner       String
+  description String
+  skill       String[]
+  type        positionType @default(internship)
+  openings    Int
+  salary      String
+}
+
+enum positionType {
+  internship
+  permanent
+  both
 }
