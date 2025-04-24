@@ -42,8 +42,8 @@ const NavBar: React.FC = () => {
                   </Link>
 
                   <Link href="/student-home-page" passHref legacyBehavior key="student-home-page">
-                  <Nav.Link 
-                    id="student-home-page-nav" 
+                  <Nav.Link
+                    id="student-home-page-nav"
                     active={pathName === '/student-home-page'}
                   >
                     Student Home
@@ -51,9 +51,9 @@ const NavBar: React.FC = () => {
                   </Link>
 
                   <Link href="/company-profile" passHref legacyBehavior key="company-profile">
-                  <Nav.Link 
-                  id="company-profile-nav" 
-                  active={pathName === '/company-profile'}
+                  <Nav.Link
+                    id="company-profile-nav"
+                    active={pathName === '/company-profile'}
                   >
                     Company Profile
                   </Nav.Link>
@@ -65,7 +65,7 @@ const NavBar: React.FC = () => {
 
             {/* }    ] */}
             {/* }: ''} */}
- 
+
             {/* <Nav.Link href="#" key="#" active={pathName === '#'}>
               Home
             </Nav.Link>
