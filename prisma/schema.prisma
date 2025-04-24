@@ -14,12 +14,6 @@ model User {
   role     Role   @default(USER)
 }
 
-enum Role {
-  USER
-  ADMIN
-  COMPANY
-}
-
 model Job {
   id          Int          @id @default(autoincrement())
   owner       String
@@ -28,6 +22,12 @@ model Job {
   type        positionType @default(internship)
   openings    Int
   salary      String
+}
+
+enum Role {
+  USER
+  ADMIN
+  COMPANY
 }
 
 enum positionType {
