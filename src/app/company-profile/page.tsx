@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const CompanyPage: React.FC = () => {
-  return (
+return (
     <>
       <main className="container my-5">
         <div className="row mb-5">
