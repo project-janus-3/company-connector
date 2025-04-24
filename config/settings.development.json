@@ -10,6 +10,15 @@
     {"description": "Very honest company", "skill": "C++", "type": "permanent", "openings": 4, "salary": "2000$", "owner": "company@foo.com"},
     {"description": "Very hardworking company", "skill": "JavaScript, C", "type": "internship", "openings": 2, "salary": "1000$", "owner": "john@foo.com"},
     {"description": "Very interesting company", "skill": "JavaScript", "type": "permanent", "openings": 5, "salary": "3000$", "owner": "john@foo.com"}
-
+  ],
+  "defaultStudentData": [
+    { "email": "john@foo.com",
+      "firstName": "John", 
+      "lastName": "Doe",
+      "prefLocation": "Oahu",
+      "aboutMe": "Lorem ipsum dolor sit amet",
+      "major": "Computer Science",
+      "interests": "I'm interested in web development and game design"
+    }
   ]
 }

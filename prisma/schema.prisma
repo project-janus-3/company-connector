@@ -28,14 +28,21 @@ model User {
   email    String @unique
   password String
   role     Role   @default(USER)
+
+  // Optional one to one relation to account type model
+  student  Student?
 }
 
 model Student {
-  id        Int     @id @default(autoincrement())
-  user      User    @relation(fields: [userId], references: [id])
-  userId    Int     @unique
-  major     String
-  interests String[]
+  id           Int     @id @default(autoincrement())
+  user         User    @relation(fields: [userId], references: [id])
+  userId       Int     @unique
+  firstName    String
+  lastName     String
+  prefLocation String
+  aboutMe      String
+  major        String
+  interests    String
 }
 
 model Job {
