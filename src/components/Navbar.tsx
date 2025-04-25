@@ -2,6 +2,7 @@
 
 'use client';
 
+import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
@@ -20,21 +21,52 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
-            {currentUser
-              ? [
-                  <Nav.Link id="add-stuff-nav" href="/add" key="add" active={pathName === '/add'}>
+            {/* { currentUser */}
+               {/* ? [ */}
+                  <Link href="/" passHref legacyBehavior key="home">
+                  <Nav.Link
+                    id="home-nav"
+                    active={pathName === '/'}
+                  >
                     Home
-                  </Nav.Link>,
-                  <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
-                    Profile
-                  </Nav.Link>,
+                  </Nav.Link>
+                  </Link>
+
+                  <Link href="/student-profile" passHref legacyBehavior key="student-profile">
+                  <Nav.Link
+                    id="student-profile-nav"
+                    active={pathName === '/student-profile'}
+                  >
+                    Student Profile
+                  </Nav.Link>
+                  </Link>
+
+                  <Link href="/student-home-page" passHref legacyBehavior key="student-home-page">
+                  <Nav.Link
+                    id="student-home-page-nav"
+                    active={pathName === '/student-home-page'}
+                  >
+                    Student Home
+                  </Nav.Link>
+                  </Link>
+
+                  <Link href="/company-profile" passHref legacyBehavior key="company-profile">
+                  <Nav.Link
+                    id="company-profile-nav"
+                    active={pathName === '/company-profile'}
+                  >
+                    Company Profile
+                  </Nav.Link>
+                  </Link>
+
                   <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
                     Browse
-                  </Nav.Link>,
-                ]
-            : ''}
+                  </Nav.Link>
 
-            <Nav.Link href="#" key="#" active={pathName === '#'}>
+            {/* }    ] */}
+            {/* }: ''} */}
+
+            {/* <Nav.Link href="#" key="#" active={pathName === '#'}>
               Home
             </Nav.Link>
 
@@ -44,7 +76,7 @@ const NavBar: React.FC = () => {
 
             <Nav.Link href="#" key="#" active={pathName === '#'}>
               Browse
-            </Nav.Link>
+            </Nav.Link> */}
 
             {currentUser && role === 'ADMIN' ? (
               <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>

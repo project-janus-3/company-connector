@@ -3,6 +3,10 @@
   --nat-navbar-text-color: black;
 }
 
+.text-font {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 #navbar-style {
   background-color: var(--nat-navbar-bg);
   color: var(--nat-navbar-text-color);
@@ -27,6 +31,14 @@
 .footer-text {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 18px;
+}
+
+.green-bg {
+  background-color: green;
+}
+
+.white-text {
+  color: white;
 }
 
 html,
@@ -77,3 +89,7 @@ body {
   text-align: center;
 }
   
+.info h1,
+.info p {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}

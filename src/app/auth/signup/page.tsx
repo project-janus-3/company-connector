@@ -11,6 +11,7 @@ type SignUpForm = {
   email: string;
   password: string;
   confirmPassword: string;
+  // role: Role;
   // acceptTerms: boolean;
 };
 
@@ -45,7 +46,7 @@ const SignUp = () => {
 
   return (
     <main>
-      <Container>
+      <Container className="text-font">
         <Row className="justify-content-center">
           <Col xs={5}>
             <h1 className="text-center">Sign Up</h1>
@@ -61,6 +62,21 @@ const SignUp = () => {
                     />
                     <div className="invalid-feedback">{errors.email?.message}</div>
                   </Form.Group>
+
+                  {/* For users to create an account type (user or company) - Left as comment for now
+                   <Form.Group className="form-group">
+                    <Form.Label>Account Type</Form.Label>
+                    <select
+                      {...register('role')}
+                      className={`form-control ${errors.role ? 'is-invalid' : ''}`}
+                    >
+                      <option value="">Select Account Type</option>
+                      <option value="user">Regular User</option>
+                      <option value="company">Company</option>
+                    </select>
+                    <div className="invalid-feedback">{errors.role?.message}</div>
+                    </Form.Group>
+                  */}
 
                   <Form.Group className="form-group">
                     <Form.Label>Password</Form.Label>
@@ -98,7 +114,7 @@ const SignUp = () => {
               </Card.Body>
               <Card.Footer>
                 Already have an account?
-                <a href="/auth/signin">Sign in</a>
+                <a href="/auth/signin"> Sign in</a>
               </Card.Footer>
             </Card>
           </Col>
