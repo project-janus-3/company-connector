@@ -13,6 +13,8 @@ model User {
   email    String @unique
   password String
   role     Role   @default(USER)
+
+  company  Company?
 }
 
 model Company {
