@@ -16,6 +16,16 @@ model User {
 
   // Optional one to one relation to account type model
   student  Student?
+  company  Company?
+}
+
+model Company {
+  id           Int     @id @default(autoincrement())
+  name         String 
+  user         User    @relation(fields: [companyId], references: [id])
+  companyId    Int     @unique
+  location     String
+  description  String
 }
 
 model Student {
