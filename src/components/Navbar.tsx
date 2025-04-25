@@ -59,9 +59,14 @@ const NavBar: React.FC = () => {
                   </Nav.Link>
                   </Link>
 
-                  <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
+                  <Link href="/browsing-page" passHref legacyBehavior key="browsing-page">
+                  <Nav.Link
+                    id="browsing-page-nav"
+                    active={pathName === '/browsing-page'}
+                  >
                     Browse
                   </Nav.Link>
+                  </Link>
 
             {/* }    ] */}
             {/* }: ''} */}
