@@ -4,17 +4,6 @@ import '../globals.css';
 
 const CompanyDirectory = () => (
   <div className="wrapper">
-    {/* Header with branding, navbar and sign out button */}
-
-    {/* Using info class from global.css instead of hero */}
-    <section className="info2">
-      <div>
-        <h1>Connecting Professionals to Opportunities</h1>
-        <p>Discover companies, jobs, and partnerships tailored to your skills and interests.</p>
-        <button type="button" className="cta-button green-bg white-text text-font">Get Started</button>
-      </div>
-    </section>
-
     {/* Companies grid section */}
     <div className="companies-container">
       <div className="companies-grid">
