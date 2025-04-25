@@ -1,29 +1,9 @@
 // pages/company-directory.tsx
-import React from 'react';
+// import React from 'react';
 import '../app/global.css';
 
-const CompanyDirectory: React.FC = () => (
+const CompanyDirectory = async () => (
   <div className="wrapper">
-    {/* Header with branding, navbar and sign out button */}
-    <header className="header" id="navbar-style">
-      <div className="brand" id="brand-style">Company Directory</div>
-      <nav className="navbar text-font">
-        <a href="#" className="nav-item" id="navlink-style">HOME</a>
-        <a href="#" className="nav-item" id="navlink-style">BROWSE</a>
-        <a href="#" className="nav-item" id="navlink-style">FAVORITES</a>
-      </nav>
-      <button className="sign-out-btn text-font">SIGN OUT</button>
-    </header>
-
-    {/* Using info class from global.css instead of hero */}
-    <section className="info">
-      <div>
-        <h1>Connecting Professionals to Opportunities</h1>
-        <p>Discover companies, jobs, and partnerships tailored to your skills and interests.</p>
-        <button className="cta-button green-bg white-text text-font">Get Started</button>
-      </div>
-    </section>
-
     {/* Companies grid section */}
     <div className="companies-container">
       <div className="companies-grid">
