@@ -1,17 +1,17 @@
 // pages/company-directory.tsx
-import React from 'react';
-import '../globals.css';
+// import React from 'react';
+import '../global.css';
 
-const CompanyDirectory = () => (
+const CompanyDirectory = async () => (
   <div className="wrapper">
     {/* Using info class from global.css instead of hero */}
-     <section className="info2">
-       <div>
-         <h1>Connecting Professionals to Opportunities</h1>
-         <p>Discover companies, jobs, and partnerships tailored to your skills and interests.</p>
-       </div>
-     </section>
-    
+    <section className="info2">
+      <div>
+        <h1>Connecting Professionals to Opportunities</h1>
+        <p>Discover companies, jobs, and partnerships tailored to your skills and interests.</p>
+      </div>
+    </section>
+
     {/* Companies grid section */}
     <div className="companies-container">
       <div className="companies-grid">
@@ -57,8 +57,6 @@ const CompanyDirectory = () => (
         <div className="scrollbar-thumb" />
       </div>
     </div>
-
-    {/* Footer */}
   </div>
 );
 
