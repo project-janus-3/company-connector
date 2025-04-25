@@ -89,3 +89,7 @@ body {
   text-align: center;
 }
   
+.info h1,
+.info p {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
