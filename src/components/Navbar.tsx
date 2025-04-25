@@ -11,7 +11,7 @@ import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
   const currentUser = session?.user?.email;
-  const userWithRole = session?.user as { email: string; randomKey: string };
+  const userWithRole = session?.user as unknown as { email: string; randomKey: string };
   const role = userWithRole?.randomKey;
   const pathName = usePathname();
   return (
@@ -59,9 +59,14 @@ const NavBar: React.FC = () => {
                   </Nav.Link>
                   </Link>
 
-                  <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
+                  <Link href="/browsing-page" passHref legacyBehavior key="browsing-page">
+                  <Nav.Link
+                    id="browsing-page-nav"
+                    active={pathName === '/browsing-page'}
+                  >
                     Browse
                   </Nav.Link>
+                  </Link>
 
             {/* }    ] */}
             {/* }: ''} */}
