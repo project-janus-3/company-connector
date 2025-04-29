@@ -67,7 +67,7 @@ export async function deleteStuff(id: number) {
 }
 
 /**
- * Creates a new user in the database.
+ * Creates a new student user in the database.
  * @param credentials, an object with the following properties: email, password.
  */
 export async function createUser(credentials: { email: string; password: string }) {
@@ -77,6 +77,7 @@ export async function createUser(credentials: { email: string; password: string 
     data: {
       email: credentials.email,
       password,
+      role: "STUDENT",
     },
   });
 }

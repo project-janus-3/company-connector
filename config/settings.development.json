@@ -1,7 +1,7 @@
 {
   "defaultAccounts": [
     { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN" },
-    { "email": "john@foo.com", "password": "changeme" },
+    { "email": "john@foo.com", "password": "changeme", "role": "STUDENT"},
     { "email": "company@foo.com", "password": "changeme", "role": "COMPANY" }
   ],
 
@@ -11,13 +11,14 @@
     {"description": "Very hardworking company", "skill": "JavaScript, C", "type": "internship", "openings": 2, "salary": "1000$", "owner": "john@foo.com"},
     {"description": "Very interesting company", "skill": "JavaScript", "type": "permanent", "openings": 5, "salary": "3000$", "owner": "john@foo.com"}
   ],
-  "defaultStudentData": [
+  "defaultStudentProfiles": [
     { "email": "john@foo.com",
       "firstName": "John", 
       "lastName": "Doe",
       "prefLocation": "Oahu",
       "aboutMe": "Lorem ipsum dolor sit amet",
       "major": "Computer Science",
+      "portfolio": "N/A",
       "interests": "I'm interested in web development and game design"
     }
   ]

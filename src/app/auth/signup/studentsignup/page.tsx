@@ -14,8 +14,6 @@ type SignUpForm = {
   email: string;
   password: string;
   confirmPassword: string;
-  // role: Role;
-  // acceptTerms: boolean;
 };
 
 /** The sign up page. */
