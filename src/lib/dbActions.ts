@@ -1,6 +1,6 @@
 'use server';
 
-import { Job, positionType } from '@prisma/client';
+import { Job, PositionType, Role } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
@@ -11,7 +11,7 @@ import { prisma } from './prisma';
  */
 export async function addStuff(stuff: { name: string; quantity: number; owner: string; jobtype: string; }) {
   // console.log(`addStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  let jobtype: positionType = 'internship';
+  let jobtype: PositionType = 'internship';
   if (stuff.jobtype === 'both') {
     jobtype = 'both';
   } else {
@@ -77,7 +77,19 @@ export async function createStudentUser(credentials: { email: string; password: 
     data: {
       email: credentials.email,
       password,
-      role: 'STUDENT',
+      role: Role.STUDENT,
+      studentProfile: {
+        create: {
+          firstName: '',
+          lastName: '',
+          location: '',
+          aboutMe: '',
+          major: '',
+          portfolio: '',
+          interests: '',
+          profilePic: '',
+        },
+      },
     },
   });
 }
@@ -93,7 +105,7 @@ export async function createCompanyUser(credentials: { email: string; password: 
     data: {
       email: credentials.email,
       password,
-      role: 'COMPANY',
+      role: Role.COMPANY,
     },
   });
 }

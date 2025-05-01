@@ -35,6 +35,7 @@ model CompanyProfile {
   jobs         Job[]
   mainSite     String?
   contact      String
+  companyPic   String
 }
 
 model StudentProfile {
@@ -48,6 +49,7 @@ model StudentProfile {
   major        String
   portfolio    String
   interests    String
+  profilePic   String
 }
 
 model Job {
