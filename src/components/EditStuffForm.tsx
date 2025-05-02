@@ -27,7 +27,6 @@ const onSubmit = async (data: Job) => {
     timer: 2000,
   });
 };
-
 const EditStuffForm = ({ stuff }: { stuff: Job }) => {
   const {
     register,

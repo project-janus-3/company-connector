@@ -4,7 +4,7 @@ import { Job } from '@prisma/client';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
-import EditStuffForm from '@/components/EditStuffForm';
+import Footer from '@/components/Footer';
 
 export default async function EditStuffPage({ params }: { params: { id: string | string[] } }) {
   // Protect the page, only logged in users can access it.
@@ -19,10 +19,6 @@ export default async function EditStuffPage({ params }: { params: { id: string |
   // console.log(id);
   const stuff: Job | null = await prisma.job.findUnique({
     where: { id },
-    include: {
-      skill: true, // Include 'skill' if it exists in the Job model
-      owner: true, // Include 'owner' if it exists in the Job model
-    },
   });
   // console.log(stuff);
   if (!stuff) {
@@ -31,7 +27,7 @@ export default async function EditStuffPage({ params }: { params: { id: string |
 
   return (
     <main>
-      <EditStuffForm stuff={stuff} />
+      <Footer />
     </main>
   );
 }
