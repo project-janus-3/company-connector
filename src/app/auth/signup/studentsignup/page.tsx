@@ -40,7 +40,7 @@ const StudentSignUp = () => {
 
   const onSubmit = async (data: SignUpForm) => {
     // console.log(JSON.stringify(data, null, 2));
-    await createStudentUser(data);
+    await createStudentUser({ ...data, role: 'STUDENT' });
     // After creating, signIn with redirect to the student's profile page
     await signIn('credentials', { callbackUrl: '/student-profile', ...data });
   };
