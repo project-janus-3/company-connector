@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/extensions */
 
 'use client';
@@ -18,7 +19,7 @@ const onSubmit = async (data: StudentProfile) => {
   });
 };
 
-const EditStuffForm = ({ studentProfile }: { studentProfile: StudentProfile }) => {
+const EditStudentProfileForm = ({ studentProfile }: { studentProfile: StudentProfile }) => {
   const {
     register,
     handleSubmit,
@@ -38,7 +39,7 @@ const EditStuffForm = ({ studentProfile }: { studentProfile: StudentProfile }) =
           </Col>
           <Card>
             <Card.Body>
-              <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form onSubmit={handleSubmit(onSubmit, (e) => console.log('Validation failed:', e))}>
                 <input type="hidden" {...register('id')} value={studentProfile.id} />
                 <input type="hidden" {...register('studentId')} value={studentProfile.studentId} />
                 <Row>
@@ -158,4 +159,4 @@ const EditStuffForm = ({ studentProfile }: { studentProfile: StudentProfile }) =
   );
 };
 
-export default EditStuffForm;
+export default EditStudentProfileForm;

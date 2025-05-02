@@ -1,58 +1,78 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+/* eslint-disable max-len */
+/* eslint-disable @next/next/no-img-element */
+import { Card, Col, Container, Row, Button } from 'react-bootstrap';
+import { prisma } from '@/lib/prisma';
+import { getServerSession } from 'next-auth';
+import { loggedInProtectedPage } from '@/lib/page-protection';
+import authOptions from '@/lib/authOptions';
 
-const CompanyPage = () => (
-  <>
-    <Head>
-      <meta charSet="utf-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="description" content="Company Profile for Project Janus" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>Company Profile - Project Janus</title>
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-        crossOrigin="anonymous"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-      />
-    </Head>
+const CompanyProfile = async () => {
+  // Protect the page, only logged in users can access it.
+  const session = await getServerSession(authOptions);
+  loggedInProtectedPage(
+    session as {
+      user: { email: string; id: string; randomKey: string };
+    } | null,
+  );
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user?.email ?? '',
+    },
+    include: {
+      companyProfile: true,
+    },
+  });
+
+  const profile = user?.companyProfile;
+
+  if (!user || !profile) {
+    return <p>Profile not found. Please contact support.</p>;
+  }
+
+  return (
     <main>
-      <Container>
-        <Row className="mt-4" />
-        <Row className="d-flex justify-content-between align-items-center">
-          <Col md={4} className="d-flex justify-content-center">
-            <Card className="p-3 shadow-sm profile-sidebar-content">
-              <Image
-                src="https://img.freepik.com/free-psd/gradient-abstract-logo_23-2150689652.jpg?semt=ais_hybrid&w=740"
+      <Container className="mb-5 mt-5">
+        <Card className="shadow-sm">
+          <Row className="d-flex justify-content-between align-items-center mb-2 mt-2 me-1">
+            <Col md={2}>
+              <img
+                src={profile?.companyPic || 'https://img.freepik.com/free-psd/gradient-abstract-logo_23-2150689652.jpg?semt=ais_hybrid&w=740'}
                 alt="Company logo"
-                className="img-fluid rounded-circle me-3"
+                className="rounded-circle"
                 style={{ width: 150, height: 150 }}
                 width={150}
                 height={150}
               />
-            </Card>
-          </Col>
-          <Col md={8}>
-            <p className="mb-1 fw-bold">COMPANY NAME</p>
-            <p className="mb-0">Location: Foo</p>
-            <Card className="p-3 shadow-sm">
-              <h5>OVERVIEW</h5>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum.
+            </Col>
+            <Col md={10}>
+              <p className="mb-1 fw-bold">{profile?.name || 'Company Name'}</p>
+              <p className="mb-1">
+                Location:
+                {' '}
+                {profile?.location || 'Location'}
               </p>
-            </Card>
-          </Col>
-        </Row>
+              <Card className="p-3 shadow-sm">
+                <h5>OVERVIEW</h5>
+                <p>
+                  {profile?.overview || 'Company overview goes here.'}
+                </p>
+              </Card>
+            </Col>
+          </Row>
+          <Row className="d-flex justify-content-between align-items-center mb-2 mt-2 me-1">
+            <Col md={2}>
+              <Button
+                variant="light"
+                href={`/editcompanyprofile/${profile.id}`}
+                className="btn btn-outline-dark ms-3"
+              >
+                Edit Profile
+              </Button>
+            </Col>
+            <Col md={10} />
+          </Row>
+        </Card>
         <Row className="mt-4">
           <Col>
             <Card className="p-3 shadow-sm text-center">
@@ -93,27 +113,7 @@ const CompanyPage = () => (
         </Row>
       </Container>
     </main>
-    <footer className="navbar navbar-expand-sm navbar-light mt-4 fixed-bottom bg-light">
-      <Container className="d-flex justify-content-between align-items-center">
-        <section className="link">
-          <a
-            href="https://project-janus-3.github.io/project-janus.github.io/"
-            className="gray-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            https://project-janus-3.github.io/project-janus.github.io/
-          </a>
-        </section>
-        <Form className="mt-2">
-          <Form.Control type="text" placeholder="Your message" className="mb-2" />
-          <Button type="submit" variant="primary" className="form-control">
-            Send
-          </Button>
-        </Form>
-      </Container>
-    </footer>
-  </>
-);
+  );
+};
 
-export default CompanyPage;
+export default CompanyProfile;
