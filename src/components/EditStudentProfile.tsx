@@ -18,7 +18,7 @@ const onSubmit = async (data: StudentProfile) => {
   });
 };
 
-const EditStuffForm = ({ studentProfile }: { studentProfile: StudentProfile }) => {
+const EditStudentProfileForm = ({ studentProfile }: { studentProfile: StudentProfile }) => {
   const {
     register,
     handleSubmit,
@@ -157,4 +157,4 @@ const EditStuffForm = ({ studentProfile }: { studentProfile: StudentProfile }) =
   );
 };
 
-export default EditStuffForm;
+export default EditStudentProfileForm;
