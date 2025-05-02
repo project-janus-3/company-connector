@@ -1,6 +1,6 @@
 // pages/company-directory.tsx
 // import React from 'react';
-import '../globals.css';
+// import '../global.css';
 
 const CompanyDirectory = async () => (
   <div className="wrapper">

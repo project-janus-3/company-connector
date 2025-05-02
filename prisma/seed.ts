@@ -1,4 +1,5 @@
-import { PrismaClient, Role, positionType } from '@prisma/client';
+/* eslint-disable no-lone-blocks */
+import { PrismaClient, Role /* PositionType */ } from '@prisma/client';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
 
@@ -14,32 +15,34 @@ async function main() {
       create: {
         email: account.email,
         password,
-        role: (account.role as Role) || Role.USER,
+        role: (account.role as Role) || Role.STUDENT,
       },
     })
     .then(() => console.log(
       `  Creating user: ${account.email} with role: ${
-        (account.role as Role) || Role.USER
+        (account.role as Role) || Role.STUDENT
       }`,
     )));
 
-  for (const data of config.defaultData) {
-    const type = (data.type as positionType) || positionType.internship;
-    console.log(`  Adding stuff: ${JSON.stringify(data)}`);
-    // eslint-disable-next-line no-await-in-loop
-    await prisma.job.upsert({
-      where: { id: config.defaultData.indexOf(data) + 1 },
-      update: {},
-      create: {
-        description: data.description,
-        skill: [data.skill],
-        type,
-        openings: data.openings,
-        salary: data.salary,
-        owner: data.owner,
-      },
-    });
-  }
+  { /*
+    for (const data of config.defaultData) {
+      const type = (data.type as PositionType) || PositionType.internship;
+      console.log(`  Adding stuff: ${JSON.stringify(data)}`);
+      // eslint-disable-next-line no-await-in-loop
+      await prisma.job.upsert({
+        where: { id: config.defaultData.indexOf(data) + 1 },
+        update: {},
+        create: {
+          description: data.description,
+          skill: [data.skill],
+          type,
+          openings: data.openings,
+          salary: data.salary,
+          owner: data.owner,
+        },
+      });
+    }
+    */ }
 }
 
 main()

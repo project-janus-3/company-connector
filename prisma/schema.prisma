@@ -4,59 +4,73 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  url       = env("DATABASE_URL")
+  // for Vercel
+  // url       = env("POSTGRES_PRISMA_URL")
+  // directUrl = env("POSTGRES_URL_NON_POOLING")
 }
+
+
+// Models for the User
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
-  role     Role   @default(USER)
+  id              Int    @id @default(autoincrement())
+  email           String @unique
+  password        String
+  role            Role   
 
-  // Optional one to one relation to account type model
-  student  Student?
-  company  Company?
+  // Relation to one of the profiles
+  // Depends on "role" i.e: User with "Student" role will have StudentProfile
+  studentProfile  StudentProfile?
+  companyProfile  CompanyProfile?
 }
 
-model Company {
+model CompanyProfile {
   id           Int     @id @default(autoincrement())
   name         String 
-  user         User    @relation(fields: [companyId], references: [id])
+  company      User    @relation(fields: [companyId], references: [id])
   companyId    Int     @unique
+  overview     String 
   location     String
-  description  String
+  jobs         Job[]
+  mainSite     String?
+  contact      String
+  companyPic   String
 }
 
-model Student {
+model StudentProfile {
   id           Int     @id @default(autoincrement())
-  user         User    @relation(fields: [userId], references: [id])
-  userId       Int     @unique
+  student      User    @relation(fields: [studentId], references: [id])
+  studentId    Int     @unique
   firstName    String
   lastName     String
-  prefLocation String
+  location     String
   aboutMe      String
   major        String
+  portfolio    String
   interests    String
+  profilePic   String
 }
 
 model Job {
-  id          Int          @id @default(autoincrement())
-  owner       String
-  description String
-  skill       String[]
-  type        positionType @default(internship)
-  openings    Int
-  salary      String
+  id            Int             @id @default(autoincrement())
+  jobId         Int          
+  jobFrom       CompanyProfile  @relation(fields: [jobId], references: [id])
+  company       String
+  description   String
+  skills        String
+  type          PositionType    @default(internship)
+  openings      Int
+  salary        String
 }
 
 enum Role {
-  USER
-  ADMIN
+  STUDENT
   COMPANY
+  ADMIN
 }
 
-enum positionType {
+enum PositionType {
   internship
   permanent
   both

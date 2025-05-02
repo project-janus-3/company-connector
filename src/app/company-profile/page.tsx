@@ -7,9 +7,9 @@ const CompanyPage = () => (
     <Head>
       <meta charSet="utf-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="description" content="Student home page for Project Janus" />
+      <meta name="description" content="Company Profile for Project Janus" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>Company Home - Project Janus</title>
+      <title>Company Profile - Project Janus</title>
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -28,8 +28,7 @@ const CompanyPage = () => (
           <Col md={4} className="d-flex justify-content-center">
             <Card className="p-3 shadow-sm profile-sidebar-content">
               <Image
-                src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/free-company-
-                logo-design-template-f02206903dcc70505736cca7fd9c5104_screen.jpg"
+                src="https://img.freepik.com/free-psd/gradient-abstract-logo_23-2150689652.jpg?semt=ais_hybrid&w=740"
                 alt="Company logo"
                 className="img-fluid rounded-circle me-3"
                 style={{ width: 150, height: 150 }}
