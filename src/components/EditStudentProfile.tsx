@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/extensions */
 
 'use client';
@@ -38,7 +39,7 @@ const EditStudentProfileForm = ({ studentProfile }: { studentProfile: StudentPro
           </Col>
           <Card>
             <Card.Body>
-              <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form onSubmit={handleSubmit(onSubmit, (e) => console.log('Validation failed:', e))}>
                 <input type="hidden" {...register('id')} value={studentProfile.id} />
                 <input type="hidden" {...register('studentId')} value={studentProfile.studentId} />
                 <Row>

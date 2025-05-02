@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/extensions */
 
 'use client';
@@ -38,8 +39,9 @@ const EditCompanyProfileForm = ({ companyProfile }: { companyProfile: CompanyPro
           </Col>
           <Card>
             <Card.Body>
-              <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form onSubmit={handleSubmit(onSubmit, (e) => console.log('Validation failed:', e))}>
                 <input type="hidden" {...register('id')} value={companyProfile.id} />
+                <input type="hidden" {...register('companyId')} value={companyProfile.companyId} />
                 <Form.Group>
                   <Form.Label>Company Name</Form.Label>
                   <input
@@ -84,6 +86,15 @@ const EditCompanyProfileForm = ({ companyProfile }: { companyProfile: CompanyPro
                     className={`form-control ${errors.overview ? 'is-invalid' : ''}`}
                   />
                   <div className="invalid-feedback">{errors.overview?.message}</div>
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>List Contacts</Form.Label>
+                  <textarea
+                    {...register('contact')}
+                    defaultValue={companyProfile.contact}
+                    className={`form-control ${errors.contact ? 'is-invalid' : ''}`}
+                  />
+                  <div className="invalid-feedback">{errors.contact?.message}</div>
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Company Picture</Form.Label>
