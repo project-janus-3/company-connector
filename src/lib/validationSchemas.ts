@@ -10,11 +10,14 @@ export const AddStuffSchema = Yup.object({
 export const EditStuffSchema = Yup.object().shape({
   id: Yup.number().required(),
   description: Yup.string().required(),
-  skill: Yup.array(Yup.string().required()).required(),
-  type: Yup.mixed<'internship' | 'permanent' | 'both'>().required(),
+  skill: Yup.array().of(Yup.string()).required(),
+  type: Yup.mixed<'internship' | 'permanent' | 'both'>().oneOf(['internship', 'permanent', 'both']).required(),
   salary: Yup.string().required(),
   openings: Yup.number().required(),
   owner: Yup.string().required(),
+  jobId: Yup.number().required(),
+  company: Yup.string().required(),
+  skills: Yup.string().required(),
 });
 
 export const EditStudentProfileSchema = Yup.object().shape({

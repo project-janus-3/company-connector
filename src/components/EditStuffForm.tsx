@@ -4,9 +4,21 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import swal from 'sweetalert';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Job } from '@prisma/client';
 import { EditStuffSchema } from '@/lib/validationSchemas';
 import { editStuff } from '@/lib/dbActions';
+
+type Job = {
+  id: number;
+  description: string;
+  type: 'internship' | 'permanent' | 'both';
+  openings: number;
+  salary: string;
+  skill: (string | undefined)[];
+  owner: string;
+  jobId: number;
+  company: string;
+  skills: string;
+};
 
 const onSubmit = async (data: Job) => {
   // console.log(`onSubmit data: ${JSON.stringify(data, null, 2)}`);
@@ -56,7 +68,7 @@ const EditStuffForm = ({ stuff }: { stuff: Job }) => {
                   <input
                     type="number"
                     {...register('skill')}
-                    defaultValue={stuff.skill}
+                    defaultValue={stuff.skill.filter((s): s is string => s !== undefined)}
                     className={`form-control ${errors.skill ? 'is-invalid' : ''}`}
                   />
                   <div className="invalid-feedback">{errors.skill?.message}</div>
