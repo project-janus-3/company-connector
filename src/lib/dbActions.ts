@@ -21,11 +21,16 @@ export async function addStuff(stuff: { name: string; quantity: number; owner: s
   await prisma.job.create({
     data: {
       description: stuff.name,
-      skill: [stuff.jobtype],
+      skills: stuff.jobtype,
       type: jobtype,
       openings: stuff.quantity,
-      owner: stuff.owner,
       salary: '0', // Replace with appropriate salary value or logic
+      company: '1', // Replace with the actual company ID or name as a string
+      jobFrom: {
+        connect: {
+          id: 1, // Replace 1 with the actual ID of the related company profile
+        },
+      },
     },
   });
   // After adding, redirect to the list page
@@ -42,11 +47,9 @@ export async function editStuff(stuff: Job) {
     where: { id: stuff.id },
     data: {
       description: stuff.description,
-      skill: stuff.skill,
+      skills: stuff.skills,
       type: stuff.type,
       openings: stuff.openings,
-      owner: stuff.owner,
-      salary: stuff.salary,
     },
   });
   // After updating, redirect to the list page
