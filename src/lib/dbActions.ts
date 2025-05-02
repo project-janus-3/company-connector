@@ -73,7 +73,7 @@ export async function deleteStuff(id: number) {
  * Creates a new student user in the database.
  * @param credentials, an object with the following properties: email, password.
  */
-export async function createUser(credentials: { email: string; password: string; role: Role }) {
+export async function createStudentUser(credentials: { email: string; password: string; role: Role }) {
   const password = await hash(credentials.password, 10);
 
   if (credentials.role === Role.STUDENT) {
