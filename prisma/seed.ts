@@ -32,7 +32,7 @@ async function main() {
       update: {},
       create: {
         description: data.description,
-        skill: [data.skill],
+        skill: Array.isArray(data.skill) ? data.skill : [data.skill],
         type,
         openings: data.openings,
         salary: data.salary,
