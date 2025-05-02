@@ -73,56 +73,49 @@ export async function deleteStuff(id: number) {
  * Creates a new student user in the database.
  * @param credentials, an object with the following properties: email, password.
  */
-export async function createStudentUser(credentials: { email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
+export async function createUser(credentials: { email: string; password: string; role: Role }) {
   const password = await hash(credentials.password, 10);
-  await prisma.user.create({
-    data: {
-      email: credentials.email,
-      password,
-      role: Role.STUDENT,
-      studentProfile: {
-        create: {
-          firstName: '',
-          lastName: '',
-          location: '',
-          aboutMe: '',
-          major: '',
-          portfolio: '',
-          interests: '',
-          profilePic: '',
+
+  if (credentials.role === Role.STUDENT) {
+    await prisma.user.create({
+      data: {
+        email: credentials.email,
+        password,
+        role: Role.STUDENT,
+        studentProfile: {
+          create: {
+            firstName: '',
+            lastName: '',
+            location: '',
+            aboutMe: '',
+            major: '',
+            portfolio: '',
+            interests: '',
+            profilePic: '',
+          },
         },
       },
-    },
-  });
-}
-
-/**
- * Creates a new company user in the database.
- * @param credentials, an object with the following properties: email, password.
- */
-export async function createCompanyUser(credentials: { email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
-  await prisma.user.create({
-    data: {
-      email: credentials.email,
-      password,
-      role: Role.COMPANY,
-      companyProfile: {
-        create: {
-          name: '',
-          overview: '',
-          location: '',
-          mainSite: '',
-          contact: '',
-          companyPic: '',
+    });
+  } else if (credentials.role === Role.COMPANY) {
+    await prisma.user.create({
+      data: {
+        email: credentials.email,
+        password,
+        role: Role.COMPANY,
+        companyProfile: {
+          create: {
+            name: '',
+            overview: '',
+            location: '',
+            mainSite: '',
+            contact: '',
+            companyPic: '',
+          },
         },
       },
-    },
-  });
+    });
+  }
 }
-
 /**
  * Edits an existing stuff in the database.
  * @param stuff, an object with the following properties: id, name, quantity, owner, jobtype.

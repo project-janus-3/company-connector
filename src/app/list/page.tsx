@@ -17,7 +17,7 @@ const ListPage = async () => {
   const owner = (session && session.user && session.user.email) || '';
   const jobs = await prisma.job.findMany({
     where: {
-      owner, // Shorthand syntax
+      ownerEmail: owner, // Use the correct property name
     },
   });
 
