@@ -40,6 +40,7 @@ const EditStudentProfileForm = ({ studentProfile }: { studentProfile: StudentPro
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('id')} value={studentProfile.id} />
+                <input type="hidden" {...register('studentId')} value={studentProfile.studentId} />
                 <Row>
                   <Col>
                     <Form.Group>

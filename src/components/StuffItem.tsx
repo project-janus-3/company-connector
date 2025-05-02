@@ -3,16 +3,16 @@ import Link from 'next/link';
 
 /* Renders a single row in the List Stuff table. See list/page.tsx. */
 const StuffItem = ({ job }: { job: Job }) => {
-  const { id, owner, description, skill, type, openings, salary } = job;
+  const { id, company, description, skills, type, openings, salary } = job;
 
   return (
     <tr>
       <td>{description}</td>
       <td>{type}</td>
-      <td>{skill}</td>
+      <td>{skills}</td>
       <td>{openings}</td>
       <td>{salary}</td>
-      <td>{owner}</td>
+      <td>{company}</td>
       <td>
         <Link href={`/edit/${id}`}>Edit</Link>
       </td>
