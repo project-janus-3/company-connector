@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-
 'use client';
 
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
@@ -10,14 +8,6 @@ import { StudentProfile } from '@prisma/client';
 import { EditStudentProfileSchema } from '@/lib/validationSchemas';
 import { editStudentProfile } from '@/lib/dbActions';
 
-const onSubmit = async (data: StudentProfile) => {
-  // console.log(`onSubmit data: ${JSON.stringify(data, null, 2)}`);
-  await editStudentProfile(data);
-  swal('Success', 'Your item has been updated', 'success', {
-    timer: 2000,
-  });
-};
-
 const EditStuffForm = ({ studentProfile }: { studentProfile: StudentProfile }) => {
   const {
     register,
@@ -26,8 +16,22 @@ const EditStuffForm = ({ studentProfile }: { studentProfile: StudentProfile }) =
     formState: { errors },
   } = useForm<StudentProfile>({
     resolver: yupResolver(EditStudentProfileSchema),
+    defaultValues: studentProfile, // Initialize form with existing profile data
   });
-  // console.log(stuff);
+
+  const onSubmit = async (data: StudentProfile) => {
+    console.log('Form data submitted:', data);
+
+    const updatedProfile: StudentProfile = {
+      ...studentProfile,
+      ...data,
+    };
+
+    await editStudentProfile(updatedProfile);
+    swal('Success', 'Your profile has been updated', 'success', {
+      timer: 2000,
+    });
+  };
 
   return (
     <Container className="py-3">
