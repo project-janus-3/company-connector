@@ -6,7 +6,7 @@
 import { getServerSession } from 'next-auth';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import { Row, Col, Card, Container } from 'react-bootstrap';
+import { Row, Col, Card, Container, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 
 /** Render a list of stuff for the logged in user. */
@@ -54,7 +54,14 @@ const StudentProfile = async () => {
               <p>{profile?.major || 'Major'}</p>
               <p>{profile?.location || 'Location'}</p>
               {/* Will Link to Edit Profile */}
-              <a href="#">Edit Profile</a>
+              <Button
+                variant="light"
+                href={`/editstudentprofile/${profile.id}`}
+                className="btn btn-outline-dark mt-3"
+              >
+                Edit Profile
+              </Button>
+
             </Card>
           </Col>
           <Col md={8} className="profile-contents">

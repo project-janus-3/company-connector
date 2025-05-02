@@ -18,7 +18,8 @@ export const EditStuffSchema = Yup.object().shape({
 });
 
 export const EditStudentProfileSchema = Yup.object().shape({
-  id: Yup.string().required(),
+  id: Yup.number().required(),
+  studentId: Yup.number().required(),
   firstName: Yup.string().required(),
   lastName: Yup.string().required(),
   major: Yup.string().required(),
