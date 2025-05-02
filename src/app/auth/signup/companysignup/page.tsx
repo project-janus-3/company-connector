@@ -8,14 +8,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
-import { createUser } from '@/lib/dbActions';
+import { createStudentUser } from '@/lib/dbActions';
 
 type SignUpForm = {
   email: string;
   password: string;
   confirmPassword: string;
-  // role: Role;
-  // acceptTerms: boolean;
+  role?: 'STUDENT' | 'COMPANY';
 };
 
 /** The sign up page. */
@@ -42,8 +41,8 @@ const CompanySignUp = () => {
 
   const onSubmit = async (data: SignUpForm) => {
     // console.log(JSON.stringify(data, null, 2));
-    await createUser(data);
-    // After creating, signIn with redirect to the add page
+    await createStudentUser({ ...data, role: 'STUDENT' });
+    await createStudentUser({ ...data, role: 'COMPANY' });
     await signIn('credentials', { callbackUrl: '/company-profile', ...data });
   };
 
