@@ -1,0 +1,55 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "./packages/lib/generated/prisma"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  role     Role   @default(USER)
+
+  // Optional one to one relation to account type model
+  student Student?
+}
+
+model Student {
+  id           Int    @id @default(autoincrement())
+  user         User   @relation(fields: [userId], references: [id])
+  userId       Int    @unique
+  firstName    String
+  lastName     String
+  prefLocation String
+  aboutMe      String
+  major        String
+  interests    String
+}
+
+model Job {
+  id          Int          @id @default(autoincrement())
+  owner       String
+  description String
+  skill       String[]
+  type        positionType @default(internship)
+  openings    Int
+  salary      String
+}
+
+enum Role {
+  USER
+  ADMIN
+  COMPANY
+}
+
+enum positionType {
+  internship
+  permanent
+  both
+}
