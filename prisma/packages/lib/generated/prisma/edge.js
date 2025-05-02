@@ -189,13 +189,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "POSTGRES_PRISMA_URL",
-        "value": "postgres://postgres.lycpanvplnqpyorbirrm:DDluinw0q6U1CgJc@aws-0-us-west-1.pooler.supabase.com:5432/postgres?sslmode=require&supa=base-pooler.x"
+        "fromEnvVar": "POSTGRES_URL_NON_POOLING",
+        "value": "postgres://postgres.lycpanvplnqpyorbirrm:DDluinw0q6U1CgJc@aws-0-us-west-1.pooler.supabase.com:5432/postgres?sslmode=require"
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./packages/lib/generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"POSTGRES_PRISMA_URL\")\n  directUrl = env(\"POSTGRES_URL\")\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  email    String @unique\n  password String\n  role     Role   @default(USER)\n\n  // Optional one to one relation to account type model\n  student Student?\n}\n\nmodel Student {\n  id           Int    @id @default(autoincrement())\n  user         User   @relation(fields: [userId], references: [id])\n  userId       Int    @unique\n  firstName    String\n  lastName     String\n  prefLocation String\n  aboutMe      String\n  major        String\n  interests    String\n}\n\nmodel Job {\n  id          Int          @id @default(autoincrement())\n  owner       String\n  description String\n  skill       String[]\n  type        positionType @default(internship)\n  openings    Int\n  salary      String\n}\n\nenum Role {\n  USER\n  ADMIN\n  COMPANY\n}\n\nenum positionType {\n  internship\n  permanent\n  both\n}\n",
-  "inlineSchemaHash": "b6f81ecc438d2a0dd56246e71c15ee0a41b2de5597e19fa3d8fcb4cad8c81e5f",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./packages/lib/generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  // for local development\n  url      = env(\"POSTGRES_URL_NON_POOLING\")\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  email    String @unique\n  password String\n  role     Role   @default(USER)\n\n  // Optional one to one relation to account type model\n  student Student?\n}\n\nmodel Student {\n  id           Int    @id @default(autoincrement())\n  user         User   @relation(fields: [userId], references: [id])\n  userId       Int    @unique\n  firstName    String\n  lastName     String\n  prefLocation String\n  aboutMe      String\n  major        String\n  interests    String\n}\n\nmodel Job {\n  id          Int          @id @default(autoincrement())\n  owner       String\n  description String\n  skill       String[]\n  type        positionType @default(internship)\n  openings    Int\n  salary      String\n}\n\nenum Role {\n  USER\n  ADMIN\n  COMPANY\n}\n\nenum positionType {\n  internship\n  permanent\n  both\n}\n",
+  "inlineSchemaHash": "b5930c74ead2e67eaf2146a2dda796b27f3575727c5043bab649d8987d41074f",
   "copyEngine": true
 }
 config.dirname = '/'
@@ -207,7 +207,7 @@ config.compilerWasm = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {
-    POSTGRES_PRISMA_URL: typeof globalThis !== 'undefined' && globalThis['POSTGRES_PRISMA_URL'] || typeof process !== 'undefined' && process.env && process.env.POSTGRES_PRISMA_URL || undefined
+    POSTGRES_URL_NON_POOLING: typeof globalThis !== 'undefined' && globalThis['POSTGRES_URL_NON_POOLING'] || typeof process !== 'undefined' && process.env && process.env.POSTGRES_URL_NON_POOLING || undefined
   }
 })
 
