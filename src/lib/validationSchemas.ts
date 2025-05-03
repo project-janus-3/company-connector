@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import * as Yup from 'Yup';
 
 export const AddStuffSchema = Yup.object({
   description: Yup.string().required(),
@@ -9,14 +9,14 @@ export const AddStuffSchema = Yup.object({
 
 export const EditStuffSchema = Yup.object().shape({
   id: Yup.number().required(),
+  jobId: Yup.number().required(),
+  company: Yup.string().required(),
   description: Yup.string().required(),
-  skill: Yup.array(Yup.string().required()).required(),
+  skills: Yup.string().required(),
   type: Yup.mixed<'internship' | 'permanent' | 'both'>().required(),
-  salary: Yup.string().required(),
   openings: Yup.number().required(),
-  owner: Yup.string().required(),
+  salary: Yup.string().required(),
 });
-
 export const EditStudentProfileSchema = Yup.object().shape({
   id: Yup.number().required(),
   studentId: Yup.number().required(),

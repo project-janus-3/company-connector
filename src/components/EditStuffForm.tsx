@@ -38,6 +38,18 @@ const EditStuffForm = ({ stuff }: { stuff: Job }) => {
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('id')} value={stuff.id} />
+                <input type="hidden" {...register('jobId')} value={stuff.jobId} />
+                <Form.Group>
+                  <Form.Label>Company</Form.Label>
+                  <input
+                    type="text"
+                    {...register('company')}
+                    defaultValue={stuff.company}
+                    required
+                    className={`form-control ${errors.company ? 'is-invalid' : ''}`}
+                  />
+                  <div className="invalid-feedback">{errors.company?.message}</div>
+                </Form.Group>
                 <Form.Group>
                   <Form.Label>Description</Form.Label>
                   <input
@@ -51,15 +63,15 @@ const EditStuffForm = ({ stuff }: { stuff: Job }) => {
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>
-                    Skill
+                    Skills
                   </Form.Label>
                   <input
                     type="number"
-                    {...register('skill')}
-                    defaultValue={stuff.skill}
-                    className={`form-control ${errors.skill ? 'is-invalid' : ''}`}
+                    {...register('skills')}
+                    defaultValue={stuff.skills}
+                    className={`form-control ${errors.skills ? 'is-invalid' : ''}`}
                   />
-                  <div className="invalid-feedback">{errors.skill?.message}</div>
+                  <div className="invalid-feedback">{errors.skills?.message}</div>
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Type</Form.Label>
@@ -96,7 +108,6 @@ const EditStuffForm = ({ stuff }: { stuff: Job }) => {
                   />
                   <div className="invalid-feedback">{errors.openings?.message}</div>
                 </Form.Group>
-                <input type="hidden" {...register('owner')} value={stuff.owner} />
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
