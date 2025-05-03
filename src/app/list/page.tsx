@@ -14,11 +14,9 @@ const ListPage = async () => {
       user: { email: string; id: string; randomKey: string };
     } | null,
   );
-  const owner = (session && session.user && session.user.email) || '';
+
   const jobs = await prisma.job.findMany({
-    where: {
-      owner, // Shorthand syntax
-    },
+
   });
 
   return (
