@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
+import * as Yup from 'Yup';
 import swal from 'sweetalert';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
 import { changePassword } from '@/lib/dbActions';
