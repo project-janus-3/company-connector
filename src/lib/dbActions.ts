@@ -1,6 +1,6 @@
 'use server';
 
-import { Job, PositionType, Role, StudentProfile } from '@prisma/client';
+import { Job, PositionType, Role, StudentProfile, CompanyProfile } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
@@ -124,8 +124,8 @@ export async function createCompanyUser(credentials: { email: string; password: 
 }
 
 /**
- * Edits an existing stuff in the database.
- * @param stuff, an object with the following properties: id, name, quantity, owner, jobtype.
+ * Edits an existing student profile in the database.
+ * @param profile, a student profile with respective properties.
  */
 export async function editStudentProfile(profile: StudentProfile) {
   // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
@@ -143,6 +143,25 @@ export async function editStudentProfile(profile: StudentProfile) {
     },
   });
   redirect('/student-profile');
+}
+
+/**
+ * Edits an existing student profile in the database.
+ * @param profile, a student profile with respective properties.
+ */
+export async function editCompanyProfile(profile: CompanyProfile) {
+  // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
+  await prisma.companyProfile.update({
+    where: { id: profile.id },
+    data: {
+      name: profile.name,
+      overview: profile.overview,
+      location: profile.location,
+      contact: profile.contact,
+      companyPic: profile.companyPic,
+    },
+  });
+  redirect('/company-profile');
 }
 
 /**

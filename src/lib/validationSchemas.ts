@@ -29,3 +29,14 @@ export const EditStudentProfileSchema = Yup.object().shape({
   portfolio: Yup.string().url().required(),
   profilePic: Yup.string().url().required(),
 });
+
+export const EditCompanyProfileSchema = Yup.object().shape({
+  id: Yup.number().required(),
+  companyId: Yup.number().required(),
+  name: Yup.string().required(),
+  overview: Yup.string().required(),
+  location: Yup.string().required(),
+  contact: Yup.string().required(),
+  mainSite: Yup.string().nullable().default(null),
+  companyPic: Yup.string().url().required(),
+});
