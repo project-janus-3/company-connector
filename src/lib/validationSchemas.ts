@@ -1,4 +1,4 @@
-import * as Yup from 'Yup';
+import * as Yup from 'yup';
 
 export const AddStuffSchema = Yup.object({
   description: Yup.string().required(),
