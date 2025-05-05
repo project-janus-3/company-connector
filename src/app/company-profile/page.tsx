@@ -3,8 +3,11 @@
 import { Card, Col, Container, Row, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
+import { Job } from '@prisma/client';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
+import JobListings from '@/components/JobListings';
+import AddJobForm from '@/components/AddJobForm';
 
 const CompanyProfile = async () => {
   // Protect the page, only logged in users can access it.
@@ -24,11 +27,19 @@ const CompanyProfile = async () => {
     },
   });
 
+  // Get the user's company profile data
   const profile = user?.companyProfile;
 
   if (!user || !profile) {
     return <p>Profile not found. Please contact support.</p>;
   }
+
+  // Get the jobs tied to this company
+  const jobs: Job[] = await prisma.job.findMany({
+    where: {
+      jobId: profile!.id, // This links to the company profile via the foreign key
+    },
+  });
 
   return (
     <main>
@@ -73,42 +84,15 @@ const CompanyProfile = async () => {
             <Col md={10} />
           </Row>
         </Card>
-        <Row className="mt-4">
+        <Row className="mt-4 mb-4">
           <Col>
-            <Card className="p-3 shadow-sm text-center">
-              <h5>CAREERS FOR UH STUDENT/GRADS</h5>
-              <Container style={{ height: '300px', overflowY: 'auto' }}>
-                <Row>
-                  <Col md={6}>
-                    <Card className="p-3 mt-4 shadow-sm">
-                      <h5>POSITION</h5>
-                    </Card>
-                  </Col>
-                  <Col md={6}>
-                    <Card className="p-3 mt-4 shadow-sm">
-                      <h5>AVAILABILITY</h5>
-                    </Card>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={5}>SKILL</Col>
-                  <Col md={5}>SALARY</Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Card className="p-3 mt-4 shadow-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                      est laborum.
-                    </Card>
-                  </Col>
-                </Row>
-              </Container>
-            </Card>
+            {/* Job Listings */}
+            <JobListings jobs={jobs} />
+          </Col>
+        </Row>
+        <Row className="mt-4 mb-4">
+          <Col>
+            <AddJobForm company={profile} />
           </Col>
         </Row>
       </Container>

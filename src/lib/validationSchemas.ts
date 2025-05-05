@@ -1,10 +1,13 @@
 import * as Yup from 'yup';
 
-export const AddStuffSchema = Yup.object({
+export const AddJobSchema = Yup.object({
+  position: Yup.string().required(),
   description: Yup.string().required(),
   openings: Yup.number().positive().required(),
+  skills: Yup.string().required(),
+  salary: Yup.string().required(),
   type: Yup.string().oneOf(['internship', 'permanent', 'both']).required(),
-  owner: Yup.string().required(),
+  jobId: Yup.number().required(),
 });
 
 export const EditStuffSchema = Yup.object().shape({
@@ -17,6 +20,7 @@ export const EditStuffSchema = Yup.object().shape({
   openings: Yup.number().required(),
   salary: Yup.string().required(),
 });
+
 export const EditStudentProfileSchema = Yup.object().shape({
   id: Yup.number().required(),
   studentId: Yup.number().required(),

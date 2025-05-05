@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 'use server';
 
 import { Job, PositionType, Role, StudentProfile, CompanyProfile } from '@prisma/client';
@@ -5,36 +7,18 @@ import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
 
-/**
- * Adds a new stuff to the database.
- * @param stuff, an object with the following properties: name, quantity, owner, jobtype.
- */
-export async function addStuff(stuff: { name: string; quantity: number; owner: string; jobtype: string; }) {
-  // console.log(`addStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  let jobtype: PositionType = 'internship';
-  if (stuff.jobtype === 'both') {
-    jobtype = 'both';
-  } else {
-    jobtype = 'permanent';
-  }
-
+export async function addJob(job: { position: string; description: string, openings: number; skills: string; salary: string; type: PositionType; jobId: number }) {
   await prisma.job.create({
     data: {
-      description: stuff.name,
-      skills: stuff.jobtype,
-      type: jobtype,
-      openings: stuff.quantity,
-      salary: '0', // Replace with appropriate salary value or logic
-      company: '1', // Replace with the actual company ID or name as a string
-      jobFrom: {
-        connect: {
-          id: 1, // Replace 1 with the actual ID of the related company profile
-        },
-      },
+      position: job.position,
+      description: job.description,
+      skills: job.skills,
+      type: job.type,
+      openings: job.openings,
+      salary: job.salary,
+      jobId: job.jobId,
     },
   });
-  // After adding, redirect to the list page
-  redirect('/list');
 }
 
 /**
@@ -146,8 +130,8 @@ export async function editStudentProfile(profile: StudentProfile) {
 }
 
 /**
- * Edits an existing student profile in the database.
- * @param profile, a student profile with respective properties.
+ * Edits an existing company profile in the database.
+ * @param profile, a company profile with respective properties.
  */
 export async function editCompanyProfile(profile: CompanyProfile) {
   // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
