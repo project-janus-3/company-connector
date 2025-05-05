@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
               </Nav.Link>
             </Link>
 
-            {/* Visible only to students */}
+            {/* Visible to students */}
             {role === 'STUDENT' && (
               <>
                 <Link href="/student-profile" passHref legacyBehavior key="student-profile">
@@ -46,7 +46,7 @@ const NavBar: React.FC = () => {
               </>
             )}
 
-            {/* Visible only to companies */}
+            {/* visible to companies */}
             {role === 'COMPANY' && (
               <>
                 <Link href="/company-profile" passHref legacyBehavior key="company-profile">
@@ -54,16 +54,19 @@ const NavBar: React.FC = () => {
                     Company Profile
                   </Nav.Link>
                 </Link>
-
-                <Link href="/browsing-page" passHref legacyBehavior key="browsing-page">
-                  <Nav.Link id="browsing-page-nav" active={pathName === '/browsing-page'}>
-                    Browse
-                  </Nav.Link>
-                </Link>
               </>
             )}
 
-            {/* Visible only to admins */}
+            {/* visible to company + student */}
+            {(role === 'COMPANY' || role === 'STUDENT') && (
+              <Link href="/browsing-page" passHref legacyBehavior key="browsing-page">
+              <Nav.Link id="browsing-page-nav" active={pathName === '/browsing-page'}>
+                Browse
+              </Nav.Link>
+            </Link>
+            )}
+
+            {/* Visible to admins */}
             {role === 'ADMIN' && (
               <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
                 Admin
