@@ -11,8 +11,8 @@ import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
   const currentUser = session?.user?.email;
-  const userWithRole = session?.user as unknown as { email: string; randomKey: string };
-  const role = userWithRole?.randomKey;
+  /* const userWithRole = session?.user as unknown as { email: string; randomKey: string }; */
+  const role = session?.user?.role;
   const pathName = usePathname();
 
   return (
@@ -22,25 +22,26 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
-            {/* Visible to all users */}
-            <Link href="/" passHref legacyBehavior key="home">
-              <Nav.Link id="home-nav" active={pathName === '/'}>
-                Home
-              </Nav.Link>
-            </Link>
-
+            {/* Visible to all users who are not logged in */}
+            {!session && (
+              <Link href="/" passHref legacyBehavior key="home">
+                <Nav.Link id="home-nav" active={pathName === '/'}>
+                  Home
+                </Nav.Link>
+              </Link>
+            )}
             {/* Visible to students */}
             {role === 'STUDENT' && (
               <>
-                <Link href="/student-profile" passHref legacyBehavior key="student-profile">
-                  <Nav.Link id="student-profile-nav" active={pathName === '/student-profile'}>
-                    Student Profile
-                  </Nav.Link>
-                </Link>
-
                 <Link href="/student-home-page" passHref legacyBehavior key="student-home-page">
                   <Nav.Link id="student-home-page-nav" active={pathName === '/student-home-page'}>
                     Student Home
+                  </Nav.Link>
+                </Link>
+
+                <Link href="/student-profile" passHref legacyBehavior key="student-profile">
+                  <Nav.Link id="student-profile-nav" active={pathName === '/student-profile'}>
+                    Student Profile
                   </Nav.Link>
                 </Link>
               </>
