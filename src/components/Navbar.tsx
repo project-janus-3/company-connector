@@ -11,9 +11,10 @@ import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
   const currentUser = session?.user?.email;
-  const userWithRole = session?.user as unknown as { email: string; randomKey: string };
-  const role = userWithRole?.randomKey;
+  /* const userWithRole = session?.user as unknown as { email: string; randomKey: string }; */
+  const role = session?.user?.role;
   const pathName = usePathname();
+
   return (
     <Navbar expand="lg" id="navbar-style">
       <Container>
@@ -21,76 +22,57 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
-            {/* { currentUser */}
-               {/* ? [ */}
-                  <Link href="/" passHref legacyBehavior key="home">
-                  <Nav.Link
-                    id="home-nav"
-                    active={pathName === '/'}
-                  >
-                    Home
-                  </Nav.Link>
-                  </Link>
-
-                  <Link href="/student-profile" passHref legacyBehavior key="student-profile">
-                  <Nav.Link
-                    id="student-profile-nav"
-                    active={pathName === '/student-profile'}
-                  >
-                    Student Profile
-                  </Nav.Link>
-                  </Link>
-
-                  <Link href="/student-home-page" passHref legacyBehavior key="student-home-page">
-                  <Nav.Link
-                    id="student-home-page-nav"
-                    active={pathName === '/student-home-page'}
-                  >
+            {/* Visible to all users who are not logged in */}
+            {!session && (
+              <Link href="/" passHref legacyBehavior key="home">
+                <Nav.Link id="home-nav" active={pathName === '/'}>
+                  Home
+                </Nav.Link>
+              </Link>
+            )}
+            {/* Visible to students */}
+            {role === 'STUDENT' && (
+              <>
+                <Link href="/student-home-page" passHref legacyBehavior key="student-home-page">
+                  <Nav.Link id="student-home-page-nav" active={pathName === '/student-home-page'}>
                     Student Home
                   </Nav.Link>
-                  </Link>
+                </Link>
 
-                  <Link href="/company-profile" passHref legacyBehavior key="company-profile">
-                  <Nav.Link
-                    id="company-profile-nav"
-                    active={pathName === '/company-profile'}
-                  >
+                <Link href="/student-profile" passHref legacyBehavior key="student-profile">
+                  <Nav.Link id="student-profile-nav" active={pathName === '/student-profile'}>
+                    Student Profile
+                  </Nav.Link>
+                </Link>
+              </>
+            )}
+
+            {/* visible to companies */}
+            {role === 'COMPANY' && (
+                <Link href="/company-profile" passHref legacyBehavior key="company-profile">
+                  <Nav.Link id="company-profile-nav" active={pathName === '/company-profile'}>
                     Company Profile
                   </Nav.Link>
-                  </Link>
+                </Link>
+            )}
 
-                  <Link href="/browsing-page" passHref legacyBehavior key="browsing-page">
-                  <Nav.Link
-                    id="browsing-page-nav"
-                    active={pathName === '/browsing-page'}
-                  >
-                    Browse
-                  </Nav.Link>
-                  </Link>
+            {/* visible to company + student */}
+            {(role === 'COMPANY' || role === 'STUDENT') && (
+              <Link href="/browsing-page" passHref legacyBehavior key="browsing-page">
+              <Nav.Link id="browsing-page-nav" active={pathName === '/browsing-page'}>
+                Browse
+              </Nav.Link>
+              </Link>
+            )}
 
-            {/* }    ] */}
-            {/* }: ''} */}
-
-            {/* <Nav.Link href="#" key="#" active={pathName === '#'}>
-              Home
-            </Nav.Link>
-
-            <Nav.Link href="#" key="#" active={pathName === '#'}>
-              Profile
-            </Nav.Link>
-
-            <Nav.Link href="#" key="#" active={pathName === '#'}>
-              Browse
-            </Nav.Link> */}
-
-            {currentUser && role === 'ADMIN' ? (
+            {/* Visible to admins */}
+            {role === 'ADMIN' && (
               <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
                 Admin
               </Nav.Link>
-            ) : (
-              ''
             )}
           </Nav>
+
           <Nav className="justify-content-end">
             {session ? (
               <NavDropdown id="login-dropdown navlink-style" title={currentUser}>
