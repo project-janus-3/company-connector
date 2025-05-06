@@ -1,9 +1,11 @@
 /* eslint-disable no-param-reassign */
 
-import NextAuth, { DefaultSession } from 'next-auth';
+import NextAuth, { DefaultSession, NextAuthOptions, Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import { JWT } from 'next-auth/jwt';
+/* import { Session } from 'next-auth'; */
 
 const prisma = new PrismaClient();
 
@@ -21,7 +23,7 @@ declare module 'next-auth' {
   }
 }
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -35,24 +37,15 @@ const handler = NextAuth({
         }
 
         try {
-          // Find user by email
           const user = await prisma.user.findUnique({
             where: { email: credentials.email },
           });
 
-          // If no user found or password doesn't match
-          if (!user) {
-            return null;
-          }
+          if (!user) return null;
 
-          // Check if password matches
           const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+          if (!passwordMatch) return null;
 
-          if (!passwordMatch) {
-            return null;
-          }
-
-          // Return user object without password
           return {
             id: user.id.toString(),
             email: user.email,
@@ -75,14 +68,14 @@ const handler = NextAuth({
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user?: { id: string; role: string } }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
@@ -90,6 +83,7 @@ const handler = NextAuth({
       return session;
     },
   },
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
