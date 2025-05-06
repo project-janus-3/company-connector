@@ -48,13 +48,11 @@ const NavBar: React.FC = () => {
 
             {/* visible to companies */}
             {role === 'COMPANY' && (
-              <>
                 <Link href="/company-profile" passHref legacyBehavior key="company-profile">
                   <Nav.Link id="company-profile-nav" active={pathName === '/company-profile'}>
                     Company Profile
                   </Nav.Link>
                 </Link>
-              </>
             )}
 
             {/* visible to company + student */}
@@ -63,7 +61,7 @@ const NavBar: React.FC = () => {
               <Nav.Link id="browsing-page-nav" active={pathName === '/browsing-page'}>
                 Browse
               </Nav.Link>
-            </Link>
+              </Link>
             )}
 
             {/* Visible to admins */}
