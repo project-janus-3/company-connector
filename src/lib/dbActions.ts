@@ -21,6 +21,21 @@ export async function addJob(job: { position: string; description: string, openi
   });
 }
 
+export async function editJob(job: Job) {
+  await prisma.job.update({
+    where: { id: job.id },
+    data: {
+      position: job.position,
+      description: job.description,
+      skills: job.skills,
+      type: job.type,
+      openings: job.openings,
+      salary: job.salary,
+    },
+  });
+  redirect('/company-profile');
+}
+
 /**
  * Edits an existing stuff in the database.
  * @param stuff, an object with the following properties: id, name, quantity, owner, jobtype.
