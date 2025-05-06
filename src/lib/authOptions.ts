@@ -1,83 +1,95 @@
-/* eslint-disable arrow-body-style */
-import { compare } from 'bcrypt';
-import { type NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '@/lib/prisma';
+/* eslint-disable no-param-reassign */
 
-const authOptions: NextAuthOptions = {
-  session: {
-    strategy: 'jwt',
-  },
+import NextAuth, { DefaultSession } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcrypt';
+
+const prisma = new PrismaClient();
+
+declare module 'next-auth' {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+      role: string;
+    } & DefaultSession['user'];
+  }
+
+  interface User {
+    id: string;
+    role: string;
+  }
+}
+
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      name: 'Email and Password',
+      name: 'Credentials',
       credentials: {
-        email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'john@foo.com',
-        },
+        email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
-          return null;
-        }
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
-        });
-        if (!user) {
+        if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
-        const isPasswordValid = await compare(credentials.password, user.password);
-        if (!isPasswordValid) {
+        try {
+          // Find user by email
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          });
+
+          // If no user found or password doesn't match
+          if (!user) {
+            return null;
+          }
+
+          // Check if password matches
+          const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+
+          if (!passwordMatch) {
+            return null;
+          }
+
+          // Return user object without password
+          return {
+            id: user.id.toString(),
+            email: user.email,
+            role: user.role,
+          };
+        } catch (error) {
+          console.error('Authentication error:', error);
           return null;
         }
-
-        return {
-          id: `${user.id}`,
-          email: user.email,
-          role: user.role,
-        };
       },
     }),
   ],
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signout',
-    //   error: '/auth/error',
-    //   verifyRequest: '/auth/verify-request',
-    //   newUser: '/auth/new-user'
+    error: '/auth/error',
+  },
+  session: {
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    session: ({ session, token }) => {
-      // console.log('Session Callback', { session, token })
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          randomKey: token.randomKey,
-        },
-      };
-    },
-    jwt: ({ token, user }) => {
-      // console.log('JWT Callback', { token, user })
+    async jwt({ token, user }) {
       if (user) {
-        const u = user as unknown as any;
-        return {
-          ...token,
-          id: u.id,
-          randomKey: u.randomKey,
-        };
+        token.id = user.id;
+        token.role = user.role;
       }
       return token;
     },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.role = token.role as string;
+      }
+      return session;
+    },
   },
-  secret: process.env.NEXTAUTH_SECRET,
-};
+});
 
-export default authOptions;
+export { handler as GET, handler as POST };
