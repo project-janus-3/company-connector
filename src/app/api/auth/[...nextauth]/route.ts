@@ -5,7 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { JWT } from 'next-auth/jwt';
-/* import { Session } from 'next-auth'; */
 
 const prisma = new PrismaClient();
 
@@ -84,6 +83,8 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
+
+export default NextAuth(authOptions);
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
