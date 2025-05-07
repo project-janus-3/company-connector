@@ -5,7 +5,7 @@
 import { Job, PositionType, Role, StudentProfile, CompanyProfile } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
-import { prisma } from './prisma';
+import prisma from './prisma';
 
 export async function addJob(job: { position: string; description: string, openings: number; skills: string; salary: string; type: PositionType; jobId: number }) {
   await prisma.job.create({
