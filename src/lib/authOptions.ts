@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
         if (!passwordMatch) return null;
 
         return {
-          id: user.id.toString(),
+          id: `${user.id}`,
           email: user.email,
           role: user.role,
         };
@@ -61,19 +61,28 @@ export const authOptions: NextAuthOptions = {
     // error: '/auth/error',
   },
   callbacks: {
-    async jwt({ token, user }) {
+    /* eslint-disable-next-line arrow-body-style */
+    session: ({ session, token }) => {
+      // console.log('Session Callback', { session, token })
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          randomKey: token.randomKey,
+        },
+      };
+    },
+    jwt: ({ token, user }) => {
       if (user) {
-        token.id = user.id;
-        token.role = user.role;
+        const u = user as unknown as any;
+        return {
+          ...token,
+          id: u.id,
+          randomKey: u.randomKey,
+        };
       }
       return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as string;
-      }
-      return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
