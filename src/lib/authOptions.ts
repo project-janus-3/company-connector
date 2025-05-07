@@ -21,14 +21,14 @@ declare module 'next-auth' {
 }
 
 // Define authOptions
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: 'Email and Password',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
