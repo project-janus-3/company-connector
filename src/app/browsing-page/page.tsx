@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 // app/company-directory/page.tsx (or pages/company-directory.tsx if using pages dir)
-import { prisma } from '@/lib/prisma'; // adjust if different path
+import prisma from '@/lib/prisma'; // adjust if different path
 import '../globals.css';
 // import Image from 'next/image';
 
