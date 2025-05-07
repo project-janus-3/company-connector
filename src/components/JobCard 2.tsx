@@ -1,7 +1,7 @@
 'use client';
 
 /* eslint-disable import/extensions */
-import Link from 'next/link';
+
 import { Card, ListGroup } from 'react-bootstrap';
 import { Job } from '@prisma/client';
 
@@ -35,11 +35,6 @@ const JobCard = ({ job }: { job: Job }) => (
           {job.description}
         </Card.Text>
       </Card.Body>
-      <Card.Footer>
-        <Link href={`editjob/${job.id}`} className="btn btn-primary">
-          Edit Details
-        </Link>
-      </Card.Footer>
     </Card>
   </ListGroup.Item>
 );

@@ -10,14 +10,14 @@ export const AddJobSchema = Yup.object({
   jobId: Yup.number().required(),
 });
 
-export const EditStuffSchema = Yup.object().shape({
+export const EditJobSchema = Yup.object().shape({
   id: Yup.number().required(),
   jobId: Yup.number().required(),
-  company: Yup.string().required(),
+  position: Yup.string().required(),
   description: Yup.string().required(),
   skills: Yup.string().required(),
-  type: Yup.mixed<'internship' | 'permanent' | 'both'>().required(),
-  openings: Yup.number().required(),
+  type: Yup.string().oneOf(['internship', 'permanent', 'both']).required(),
+  openings: Yup.number().positive().required(),
   salary: Yup.string().required(),
 });
 

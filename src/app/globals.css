@@ -236,10 +236,12 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
+  clear: both;
 }
 
 .company-card {
   display: flex;
+  flex-direction: column;
   background-color: white;
   border: 1px solid #eee;
   border-radius: 6px;
@@ -252,19 +254,33 @@ body {
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
+.card-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
 .logo-container {
-  width: 30%;
+  width: 100px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid #eee;
   border-radius: 6px;
   margin-right: 20px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  font-weight: 600;
-  color: #666;
+  padding: 12px;
+  background-color: white;
+  flex-shrink: 0;
 }
+
+.logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
 
 .company-info {
   width: 70%;
@@ -275,22 +291,70 @@ body {
 }
 
 .company-name {
-  padding: 10px;
+  flex-grow: 1;
+  padding: 15px;
   border: 1px solid #eee;
   border-radius: 6px;
   text-align: center;
   background-color: white;
   font-weight: 500;
+  font-size: 25px;
   color: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
 }
 
 .company-overview {
-  padding: 10px;
+  padding: 30px 20px;
   border: 1px solid #eee;
   border-radius: 6px;
   text-align: center;
   background-color: white;
   color: #666;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px; 
+}
+
+.company-detail-container {
+  width: 100%;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.half-width {
+  width: 48%;
+}
+
+.detail-label {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  background-color: white;
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  z-index: 1;
+}
+
+.company-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.company-location, .company-contact {
+  padding: 10px 15px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  text-align: center;
+  background-color: white;
+  color: #666;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Scrollbar styles */
