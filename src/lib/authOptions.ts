@@ -3,7 +3,7 @@
 import { DefaultSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcrypt';
-import { prisma } from '@/lib/prisma'; // Make sure this exists and exports a singleton Prisma client
+import prisma from '@/lib/prisma';
 
 // Extend session types
 declare module 'next-auth' {
