@@ -2,8 +2,10 @@ import { prisma } from '@/lib/prisma';
 import '../globals.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import CompaniesBrowse from '@/components/CompaniesBrowse';
+import { CompanyProfile } from '@prisma/client';
 
 const CompanyDirectory = async () => {
+  /*
   interface Company {
     id: number;
     name: string;
@@ -29,6 +31,11 @@ const CompanyDirectory = async () => {
   } catch (error) {
     console.error('Error fetching companies:', error);
   }
+  */
+
+  // Get all companies from the database
+  const companies: CompanyProfile[] = await prisma.companyProfile.findMany({
+  });
 
   return (
     <main>
