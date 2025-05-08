@@ -5,7 +5,7 @@
 
 import { getServerSession } from 'next-auth';
 import { loggedInProtectedPage } from '@/lib/page-protection';
-import { authOptions } from '@/lib/authOptions';
+import authOptions from '@/lib/authOptions';
 import { Row, Col, Card, Container, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 

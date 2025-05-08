@@ -1,19 +1,31 @@
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/authOptions';
+import authOptions from '@/lib/authOptions';
 import { prisma } from '@/lib/prisma';
+import { loggedInProtectedPage } from '@/lib/page-protection';
 
 const StudentHomePage = async () => {
   const session = await getServerSession(authOptions);
-  const userId = session?.user?.id;
+  loggedInProtectedPage(
+    session as {
+      user: { email: string; id: string; randomKey: string };
+    } | null,
+  );
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user?.email ?? '',
+    },
+    include: {
+      studentProfile: true,
+    },
+  });
 
   const companies = await prisma.companyProfile.findMany({
     take: 3, // limit to 3
   });
 
-  const student = await prisma.studentProfile.findUnique({
-    where: { studentId: Number(userId) },
-  });
+  const student = user?.studentProfile;
 
   const profileViews = Math.floor(Math.random() * 20) + 1; // 1 to 20
 
