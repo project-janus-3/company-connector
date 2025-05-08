@@ -11,8 +11,8 @@ import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
   const currentUser = session?.user?.email;
-  /* const userWithRole = session?.user as unknown as { email: string; randomKey: string }; */
-  const role = session?.user?.role;
+  const userWithRole = session?.user as { email: string; randomKey: string };
+  const role = userWithRole?.randomKey;
   const pathName = usePathname();
 
   return (

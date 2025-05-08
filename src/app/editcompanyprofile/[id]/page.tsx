@@ -2,9 +2,9 @@
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import { CompanyProfile } from '@prisma/client';
-import { authOptions } from '@/lib/authOptions';
+import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import EditCompanyProfile from '@/components/EditCompanyProfile';
 
 export default async function EditCompanyProfilePage({ params }: { params: { id: string | string[] } }) {

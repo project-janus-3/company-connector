@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 /* eslint-disable @next/next/no-img-element */
 import { Card, Col, Container, Row, Button } from 'react-bootstrap';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { Job } from '@prisma/client';
 import { loggedInProtectedPage } from '@/lib/page-protection';
-import { authOptions } from '@/lib/authOptions';
+import authOptions from '@/lib/authOptions';
 import JobListings from '@/components/JobListings';
 import AddJobForm from '@/components/AddJobForm';
 

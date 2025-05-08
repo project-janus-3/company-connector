@@ -7,7 +7,7 @@ datasource db {
   // For local development
   // url       = env("DATABASE_URL")
   // For vercel
-  url       = env("POSTGRES_PRISMA_URL")
+  url       = env("POSTGRES_URL_NON_POOLING")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 

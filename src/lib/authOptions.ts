@@ -1,56 +1,46 @@
-/* eslint-disable no-param-reassign */
-
-import { DefaultSession, NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+/* eslint-disable arrow-body-style */
 import { compare } from 'bcrypt';
-import prisma from '@/lib/prisma';
+import { type NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { prisma } from '@/lib/prisma';
 
-// Extend session types
-declare module 'next-auth' {
-  interface Session extends DefaultSession {
-    user: {
-      id: string;
-      role: string;
-    } & DefaultSession['user'];
-  }
-
-  interface User {
-    id: string;
-    role: string;
-  }
-}
-
-// Define authOptions
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   providers: [
     CredentialsProvider({
       name: 'Email and Password',
       credentials: {
-        email: { label: 'Email', type: 'email' },
+        email: {
+          label: 'Email',
+          type: 'email',
+          placeholder: 'john@foo.com',
+        },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
           return null;
         }
-
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: {
+            email: credentials.email,
+          },
         });
+        if (!user) {
+          return null;
+        }
 
-        if (!user) return null;
-
-        const passwordMatch = await compare(credentials.password, user.password);
-        if (!passwordMatch) return null;
+        const isPasswordValid = await compare(credentials.password, user.password);
+        if (!isPasswordValid) {
+          return null;
+        }
 
         return {
           id: `${user.id}`,
           email: user.email,
-          role: user.role,
+          randomKey: user.role,
         };
       },
     }),
@@ -58,10 +48,11 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signout',
-    // error: '/auth/error',
+    //   error: '/auth/error',
+    //   verifyRequest: '/auth/verify-request',
+    //   newUser: '/auth/new-user'
   },
   callbacks: {
-    /* eslint-disable-next-line arrow-body-style */
     session: ({ session, token }) => {
       // console.log('Session Callback', { session, token })
       return {
@@ -74,6 +65,7 @@ export const authOptions: NextAuthOptions = {
       };
     },
     jwt: ({ token, user }) => {
+      // console.log('JWT Callback', { token, user })
       if (user) {
         const u = user as unknown as any;
         return {
