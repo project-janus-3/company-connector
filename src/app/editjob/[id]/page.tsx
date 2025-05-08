@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { Job } from '@prisma/client';
 import { authOptions } from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import EditJobForm from '@/components/EditJobForm';
 
 export default async function EditJobPage({ params }: { params: { id: string | string[] } }) {

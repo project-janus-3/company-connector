@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 const StudentHomePage = async () => {
   const session = await getServerSession(authOptions);

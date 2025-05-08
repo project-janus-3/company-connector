@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import '../globals.css';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 
