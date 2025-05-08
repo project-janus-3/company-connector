@@ -1,11 +1,21 @@
 import prisma from '@/lib/prisma';
 import '../globals.css';
-import Head from 'next/head';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 
-export async function getServerSideProps() {
+const CompanyDirectory = async () => {
+  interface Company {
+    id: number;
+    name: string;
+    overview: string;
+    location: string;
+    contact: string;
+    companyPic: string;
+  }
+
+  let companies: Company[] = [];
+
   try {
-    const companies = await prisma.companyProfile.findMany({
+    companies = await prisma.companyProfile.findMany({
       select: {
         id: true,
         name: true,
@@ -15,79 +25,56 @@ export async function getServerSideProps() {
         companyPic: true,
       },
     });
-
-    return {
-      props: { companies },
-    };
   } catch (error) {
     console.error('Error fetching companies:', error);
-    return {
-      props: { companies: [] },
-    };
   }
-}
 
-type Company = {
-  id: string;
-  name: string;
-  overview: string;
-  location: string;
-  contact: string;
-  companyPic: string;
-};
-
-type CompanyDirectoryProps = {
-  companies: Company[];
-};
-
-const CompanyDirectory = ({ companies }: CompanyDirectoryProps) => {
-  <>
-    <Head>
-      <title>Company Directory</title>
-    </Head>
-    <Container>
-      <Row className="text-center my-4">
-        <Col>
-          <h1>Connecting Professionals to Opportunities</h1>
-          <p>Discover companies, jobs, and partnerships tailored to your skills and interests.</p>
-        </Col>
-      </Row>
-      <Row>
-        {companies.map((company) => (
-          <Col key={company.id} md={4} className="mb-4">
-            <Card>
-              <Card.Img
-                variant="top"
-                src={company.companyPic}
-                alt={`${company.name} logo`}
-                style={{ height: '150px', objectFit: 'cover' }}
-              />
-              <Card.Body>
-                <Card.Title>{company.name}</Card.Title>
-                <Card.Text>
-                  <strong>Overview:</strong>
-                  <br />
-                  {company.overview}
-                </Card.Text>
-                <Row>
-                  <Col>
-                    <strong>Location:</strong>
-                    <br />
-                    {company.location}
-                  </Col>
-                  <Col>
-                    <strong>Contact:</strong>
-                    <br />
-                    {company.contact}
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
+  return (
+    <main>
+      <Container>
+        <Row className="text-center my-4">
+          <Col>
+            <h1>Connecting Professionals to Opportunities</h1>
+            <p>Discover companies, jobs, and partnerships tailored to your skills and interests.</p>
           </Col>
-        ))}
-      </Row>
-    </Container>
-  </>;
+        </Row>
+        <Row>
+          {companies.map((company) => (
+            <Col key={company.id} md={4} className="mb-4">
+              <Card>
+                <Card.Img
+                  variant="top"
+                  src={company.companyPic}
+                  alt={`${company.name} logo`}
+                  style={{ height: '150px', objectFit: 'cover' }}
+                />
+                <Card.Body>
+                  <Card.Title>{company.name}</Card.Title>
+                  <Card.Text>
+                    <strong>Overview:</strong>
+                    <br />
+                    {company.overview}
+                  </Card.Text>
+                  <Row>
+                    <Col>
+                      <strong>Location:</strong>
+                      <br />
+                      {company.location}
+                    </Col>
+                    <Col>
+                      <strong>Contact:</strong>
+                      <br />
+                      {company.contact}
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </main>
+  );
 };
 
 export default CompanyDirectory;
