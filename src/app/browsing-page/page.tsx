@@ -1,8 +1,11 @@
 import { prisma } from '@/lib/prisma';
 import '../globals.css';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
+import CompaniesBrowse from '@/components/CompaniesBrowse';
+import { CompanyProfile } from '@prisma/client';
 
 const CompanyDirectory = async () => {
+  /*
   interface Company {
     id: number;
     name: string;
@@ -28,6 +31,11 @@ const CompanyDirectory = async () => {
   } catch (error) {
     console.error('Error fetching companies:', error);
   }
+  */
+
+  // Get all companies from the database
+  const companies: CompanyProfile[] = await prisma.companyProfile.findMany({
+  });
 
   return (
     <main>
@@ -38,40 +46,7 @@ const CompanyDirectory = async () => {
             <p>Discover companies, jobs, and partnerships tailored to your skills and interests.</p>
           </Col>
         </Row>
-        <Row>
-          {companies.map((company) => (
-            <Col key={company.id} md={4} className="mb-4">
-              <Card>
-                <Card.Img
-                  variant="top"
-                  src={company.companyPic}
-                  alt={`${company.name} logo`}
-                  style={{ height: '150px', objectFit: 'cover' }}
-                />
-                <Card.Body>
-                  <Card.Title>{company.name}</Card.Title>
-                  <Card.Text>
-                    <strong>Overview:</strong>
-                    <br />
-                    {company.overview}
-                  </Card.Text>
-                  <Row>
-                    <Col>
-                      <strong>Location:</strong>
-                      <br />
-                      {company.location}
-                    </Col>
-                    <Col>
-                      <strong>Contact:</strong>
-                      <br />
-                      {company.contact}
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+        <CompaniesBrowse companies={companies} />
       </Container>
     </main>
   );
