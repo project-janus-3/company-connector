@@ -1,68 +1,93 @@
-/* eslint-disable @next/next/no-img-element */
-// app/company-directory/page.tsx (or pages/company-directory.tsx if using pages dir)
-import prisma from '@/lib/prisma'; // adjust if different path
+import prisma from '@/lib/prisma';
 import '../globals.css';
-// import Image from 'next/image';
+import Head from 'next/head';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 
-const CompanyDirectory = async () => {
-  const companies = await prisma.companyProfile.findMany({
-    select: {
-      id: true,
-      name: true,
-      overview: true,
-      location: true,
-      contact: true,
-      companyPic: true,
-    },
-  });
+export async function getServerSideProps() {
+  try {
+    const companies = await prisma.companyProfile.findMany({
+      select: {
+        id: true,
+        name: true,
+        overview: true,
+        location: true,
+        contact: true,
+        companyPic: true,
+      },
+    });
 
-  return (
-    <main>
-      <div className="wrapper">
-        <section className="info2">
-          <div>
-            <h1>Connecting Professionals to Opportunities</h1>
-            <p>Discover companies, jobs, and partnerships tailored to your skills and interests.</p>
-          </div>
-        </section>
+    return {
+      props: { companies },
+    };
+  } catch (error) {
+    console.error('Error fetching companies:', error);
+    return {
+      props: { companies: [] },
+    };
+  }
+}
 
-        <div className="companies-container">
-          <div className="companies-grid">
-            {companies.map((company) => (
-              <div key={company.id} className="company-card">
-                <div className="card-top">
-                  <div className="logo-container">
-                    <img
-                      src={company.companyPic}
-                      alt={`${company.name} logo`}
-                      className="logo-img"
-                      width={100}
-                      height={100}
-                    />
-                  </div>
-                  <div className="company-name text-font">{company.name}</div>
-                </div>
-                <div className="company-detail-container">
-                  <div className="detail-label">Overview</div>
-                  <div className="company-overview text-font">{company.overview}</div>
-                </div>
-                <div className="company-footer">
-                  <div className="company-detail-container half-width">
-                    <div className="detail-label">Location</div>
-                    <div className="company-location text-font">{company.location}</div>
-                  </div>
-                  <div className="company-detail-container half-width">
-                    <div className="detail-label">Contact</div>
-                    <div className="company-contact text-font">{company.contact}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </main>
-  );
+type Company = {
+  id: string;
+  name: string;
+  overview: string;
+  location: string;
+  contact: string;
+  companyPic: string;
+};
+
+type CompanyDirectoryProps = {
+  companies: Company[];
+};
+
+const CompanyDirectory = ({ companies }: CompanyDirectoryProps) => {
+  <>
+    <Head>
+      <title>Company Directory</title>
+    </Head>
+    <Container>
+      <Row className="text-center my-4">
+        <Col>
+          <h1>Connecting Professionals to Opportunities</h1>
+          <p>Discover companies, jobs, and partnerships tailored to your skills and interests.</p>
+        </Col>
+      </Row>
+      <Row>
+        {companies.map((company) => (
+          <Col key={company.id} md={4} className="mb-4">
+            <Card>
+              <Card.Img
+                variant="top"
+                src={company.companyPic}
+                alt={`${company.name} logo`}
+                style={{ height: '150px', objectFit: 'cover' }}
+              />
+              <Card.Body>
+                <Card.Title>{company.name}</Card.Title>
+                <Card.Text>
+                  <strong>Overview:</strong>
+                  <br />
+                  {company.overview}
+                </Card.Text>
+                <Row>
+                  <Col>
+                    <strong>Location:</strong>
+                    <br />
+                    {company.location}
+                  </Col>
+                  <Col>
+                    <strong>Contact:</strong>
+                    <br />
+                    {company.contact}
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  </>;
 };
 
 export default CompanyDirectory;
