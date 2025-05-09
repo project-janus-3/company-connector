@@ -6,12 +6,14 @@ import { CompanyProfile } from '@prisma/client';
 const CompanyBrowseCard = ({ company }: { company: CompanyProfile }) => (
   <Col key={company.id} md={4} className="mb-4">
     <Card>
-      <Card.Img
-        variant="top"
-        src={company.companyPic}
-        alt={`${company.name} logo`}
-        style={{ height: '150px', objectFit: 'cover' }}
-      />
+      <Card.Link href={`/display-company/${company.id}`}>
+        <Card.Img
+          variant="top"
+          src={company.companyPic}
+          alt={`${company.name} logo`}
+          style={{ height: '150px', objectFit: 'cover' }}
+        />
+      </Card.Link>
       <Card.Body>
         <Card.Title>{company.name}</Card.Title>
         <Card.Text>
