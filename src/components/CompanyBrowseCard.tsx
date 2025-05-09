@@ -1,41 +1,39 @@
 'use client';
 
-import { Card, Col, Row } from 'react-bootstrap';
+import Image from 'next/image';
 import { CompanyProfile } from '@prisma/client';
 
 const CompanyBrowseCard = ({ company }: { company: CompanyProfile }) => (
-  <Col key={company.id} md={4} className="mb-4">
-    <Card>
-      <Card.Link href={`/display-company/${company.id}`}>
-        <Card.Img
-          variant="top"
+  <div className="company-card">
+    <div className="card-top">
+      <a href={`/display-company/${company.id}`} className="logo-container">
+        <Image
           src={company.companyPic}
           alt={`${company.name} logo`}
-          style={{ height: '150px', objectFit: 'cover' }}
+          className="logo-img"
+          width={100}
+          height={100}
         />
-      </Card.Link>
-      <Card.Body>
-        <Card.Title>{company.name}</Card.Title>
-        <Card.Text>
-          <strong>Overview:</strong>
-          <br />
-          {company.overview}
-        </Card.Text>
-        <Row>
-          <Col>
-            <strong>Location:</strong>
-            <br />
-            {company.location}
-          </Col>
-          <Col>
-            <strong>Contact:</strong>
-            <br />
-            {company.contact}
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
-  </Col>
+      </a>
+      <div className="company-name text-font">{company.name}</div>
+    </div>
+
+    <div className="company-detail-container">
+      <div className="detail-label">Overview</div>
+      <div className="company-overview text-font">{company.overview}</div>
+    </div>
+
+    <div className="company-footer">
+      <div className="company-detail-container half-width">
+        <div className="detail-label">Location</div>
+        <div className="company-location text-font">{company.location}</div>
+      </div>
+      <div className="company-detail-container half-width">
+        <div className="detail-label">Contact</div>
+        <div className="company-contact text-font">{company.contact}</div>
+      </div>
+    </div>
+  </div>
 );
 
 export default CompanyBrowseCard;
