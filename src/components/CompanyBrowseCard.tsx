@@ -1,4 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
+
 'use client';
+
 import { CompanyProfile } from '@prisma/client';
 
 const CompanyBrowseCard = ({ company }: { company: CompanyProfile }) => (
