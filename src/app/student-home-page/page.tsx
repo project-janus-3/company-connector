@@ -56,8 +56,9 @@ const StudentHomePage = async () => {
       <div className="mb-5">
         <h4>Suggested Companies</h4>
         <div className="list-group">
-          <div className="list-group">
-            {companies.map((company) => ( // empty until company database is filled
+          {companies
+            .filter((c) => c.name && c.overview)
+            .map((company) => (
               <button
                 key={company.id}
                 type="button"
@@ -68,13 +69,6 @@ const StudentHomePage = async () => {
                 {company.overview}
               </button>
             ))}
-          </div>
-          <button type="button" className="list-group-item list-group-item-action">
-            Company B - Software Engineer Co-op
-          </button>
-          <button type="button" className="list-group-item list-group-item-action">
-            Company C - UX Research Assistant
-          </button>
         </div>
       </div>
       <div className="mb-5">
