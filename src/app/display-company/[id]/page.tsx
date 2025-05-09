@@ -7,7 +7,7 @@ import { Job } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import JobListings from '@/components/JobListings';
+import JobListingsDisplay from '@/components/JobListingsDisplay';
 
 export default async function DisplayCompany({ params }: { params: { id: string | string[] } }) {
   // Protect the page, only logged in users can access it.
@@ -69,7 +69,7 @@ export default async function DisplayCompany({ params }: { params: { id: string 
         <Row className="mt-4 mb-4">
           <Col>
             {/* Job Listings */}
-            <JobListings jobs={jobs} />
+            <JobListingsDisplay jobs={jobs} />
           </Col>
         </Row>
       </Container>
